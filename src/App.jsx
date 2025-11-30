@@ -629,10 +629,9 @@ export default function Game() {
            </button>
            <button 
             onClick={() => setShowRules(true)}
-            className="p-2 bg-white/10 hover:bg-white/20 rounded-lg backdrop-blur-sm"
-            title="游戏规则"
+            className="flex items-center gap-2 px-3 py-2 bg-blue-600/80 hover:bg-blue-500 rounded-lg text-sm backdrop-blur-sm shadow-lg shadow-blue-900/50"
           >
-            <HelpCircle size={16} />
+            <HelpCircle size={14} /> 游戏规则
           </button>
            <button 
             onClick={() => setTheme(t => t === 'land' ? 'sea' : 'land')}
@@ -652,10 +651,10 @@ export default function Game() {
       <div className="flex flex-col lg:flex-row gap-4 w-full h-[calc(100vh-120px)] items-center justify-center px-4">
         
         {/* Center: Game Board Area */}
-        <div className="relative group flex-1 flex items-center justify-center">
+        <div className="relative group flex-1 flex flex-col items-center justify-center gap-6">
           
           {/* Status Bar */}
-          <div className="absolute -top-14 left-0 w-full flex justify-between items-center px-2">
+          <div className="flex justify-between items-center w-full max-w-[700px] px-4">
              <div className={`transition-all duration-300 ${turn === 'blue' ? 'opacity-100 scale-110' : 'opacity-40 grayscale'}`}>
                 <span className="text-blue-400 font-bold flex items-center gap-2">
                    {gameMode === 'pve' ? <Bot size={20}/> : <Users size={20}/>}
@@ -889,14 +888,59 @@ export default function Game() {
                 <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
                   <Swords className="text-red-400" size={20} /> 集火机制
                 </h3>
-                <p className="leading-relaxed mb-3">
+                <p className="leading-relaxed mb-4">
                   当己方移动后，在<strong>同一行或同一列</strong>形成以下模式之一时，可以消灭敌方单位：
                 </p>
-                <div className="bg-black/30 rounded-lg p-4 space-y-2 font-mono text-sm">
-                  <div>✅ <span className="text-red-400">己方</span> - <span className="text-red-400">己方</span> - <span className="text-blue-400">敌方</span> （两己夹敌，右侧）</div>
-                  <div>✅ <span className="text-blue-400">敌方</span> - <span className="text-red-400">己方</span> - <span className="text-red-400">己方</span> （两己夹敌，左侧）</div>
+                
+                {/* Visual Example 1: Attack from Right */}
+                <div className="mb-4">
+                  <div className="text-sm font-bold mb-2 text-green-300">✅ 模式1：右侧夹击</div>
+                  <div className="bg-black/40 rounded-lg p-4 border border-green-500/30">
+                    <div className="grid grid-cols-4 gap-2 w-48">
+                      <div className="aspect-square bg-gray-700/50 rounded"></div>
+                      <div className="aspect-square bg-red-600 rounded flex items-center justify-center text-xs">红</div>
+                      <div className="aspect-square bg-red-600 rounded flex items-center justify-center text-xs">红</div>
+                      <div className="aspect-square bg-blue-600 rounded flex items-center justify-center text-xs relative">
+                        蓝
+                        <div className="absolute -top-1 -right-1 text-orange-400 text-lg">💥</div>
+                      </div>
+                    </div>
+                    <div className="text-xs text-gray-400 mt-2">红方移动后形成两己夹敌，蓝方单位被消灭</div>
+                  </div>
                 </div>
-                <p className="leading-relaxed mt-3">
+
+                {/* Visual Example 2: Attack from Left */}
+                <div className="mb-4">
+                  <div className="text-sm font-bold mb-2 text-green-300">✅ 模式2：左侧夹击</div>
+                  <div className="bg-black/40 rounded-lg p-4 border border-green-500/30">
+                    <div className="grid grid-cols-4 gap-2 w-48">
+                      <div className="aspect-square bg-blue-600 rounded flex items-center justify-center text-xs relative">
+                        蓝
+                        <div className="absolute -top-1 -right-1 text-orange-400 text-lg">💥</div>
+                      </div>
+                      <div className="aspect-square bg-red-600 rounded flex items-center justify-center text-xs">红</div>
+                      <div className="aspect-square bg-red-600 rounded flex items-center justify-center text-xs">红</div>
+                      <div className="aspect-square bg-gray-700/50 rounded"></div>
+                    </div>
+                    <div className="text-xs text-gray-400 mt-2">红方移动后形成两己夹敌，蓝方单位被消灭</div>
+                  </div>
+                </div>
+
+                {/* Invalid Example */}
+                <div className="mb-3">
+                  <div className="text-sm font-bold mb-2 text-red-300">❌ 无效：中间有空格</div>
+                  <div className="bg-black/40 rounded-lg p-4 border border-red-500/30">
+                    <div className="grid grid-cols-4 gap-2 w-48">
+                      <div className="aspect-square bg-red-600 rounded flex items-center justify-center text-xs">红</div>
+                      <div className="aspect-square bg-gray-700/50 rounded"></div>
+                      <div className="aspect-square bg-red-600 rounded flex items-center justify-center text-xs">红</div>
+                      <div className="aspect-square bg-blue-600 rounded flex items-center justify-center text-xs">蓝</div>
+                    </div>
+                    <div className="text-xs text-gray-400 mt-2">中间有空格，不会触发集火</div>
+                  </div>
+                </div>
+                
+                <p className="leading-relaxed mt-3 bg-yellow-900/20 border-l-4 border-yellow-500 p-3 rounded">
                   <strong className="text-yellow-300">注意：</strong>需要连续的3个单位，中间不能有空格！
                 </p>
               </section>
@@ -905,10 +949,37 @@ export default function Game() {
                 <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
                   <span className="text-purple-400">🛡️</span> 保护机制
                 </h3>
-                <ul className="space-y-2 list-disc list-inside leading-relaxed">
-                  <li><strong>友军保护：</strong>如果被夹击的敌方单位旁边有己方单位（同行/列），则不会被消灭</li>
-                  <li><strong>拥挤保护：</strong>如果某行或某列有超过3个单位，该行/列不会触发集火</li>
-                </ul>
+                
+                {/* Protection Example 1: Friendly Protection */}
+                <div className="mb-4">
+                  <div className="text-sm font-bold mb-2 text-purple-300">✅ 友军保护</div>
+                  <div className="bg-black/40 rounded-lg p-4 border border-purple-500/30">
+                    <div className="grid grid-cols-4 gap-2 w-48">
+                      <div className="aspect-square bg-blue-600 rounded flex items-center justify-center text-xs">蓝</div>
+                      <div className="aspect-square bg-red-600 rounded flex items-center justify-center text-xs">红</div>
+                      <div className="aspect-square bg-red-600 rounded flex items-center justify-center text-xs">红</div>
+                      <div className="aspect-square bg-blue-600 rounded flex items-center justify-center text-xs relative">
+                        蓝
+                        <div className="absolute -top-2 -right-2 text-green-400 text-lg">🛡️</div>
+                      </div>
+                    </div>
+                    <div className="text-xs text-gray-400 mt-2">右侧蓝方单位被左侧友军保护，不会被消灭</div>
+                  </div>
+                </div>
+
+                {/* Protection Example 2: Crowding Protection */}
+                <div className="mb-3">
+                  <div className="text-sm font-bold mb-2 text-purple-300">✅ 拥挤保护</div>
+                  <div className="bg-black/40 rounded-lg p-4 border border-purple-500/30">
+                    <div className="grid grid-cols-4 gap-2 w-48">
+                      <div className="aspect-square bg-red-600 rounded flex items-center justify-center text-xs">红</div>
+                      <div className="aspect-square bg-blue-600 rounded flex items-center justify-center text-xs">蓝</div>
+                      <div className="aspect-square bg-red-600 rounded flex items-center justify-center text-xs">红</div>
+                      <div className="aspect-square bg-blue-600 rounded flex items-center justify-center text-xs">蓝</div>
+                    </div>
+                    <div className="text-xs text-gray-400 mt-2">该行有4个单位，触发拥挤保护，不会集火</div>
+                  </div>
+                </div>
               </section>
 
               <section>
