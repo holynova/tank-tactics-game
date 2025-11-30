@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Sparkles, RefreshCw, Trophy, Anchor, Target, Zap, Bot, Users, Swords, Volume2, VolumeX } from 'lucide-react';
+import { Sparkles, RefreshCw, Trophy, Anchor, Target, Zap, Bot, Users, Swords, Volume2, VolumeX, HelpCircle, X } from 'lucide-react';
 
 // --- Sound Engine (Web Audio API) ---
 const soundEngine = {
@@ -26,21 +26,71 @@ const soundEngine = {
     osc.stop(soundEngine.ctx.currentTime + duration);
   },
   playMotor: () => {
-    // 模拟引擎声：低频锯齿波 + 频率爬升
+    // 模拟引擎声：低频震动 + 履带轰鸣
     if (!soundEngine.ctx) return;
-    const osc = soundEngine.ctx.createOscillator();
-    const gain = soundEngine.ctx.createGain();
-    osc.type = 'sawtooth';
-    osc.frequency.setValueAtTime(80, soundEngine.ctx.currentTime);
-    osc.frequency.linearRampToValueAtTime(150, soundEngine.ctx.currentTime + 0.3);
-    osc.frequency.linearRampToValueAtTime(60, soundEngine.ctx.currentTime + 0.6);
-    gain.gain.setValueAtTime(0.05, soundEngine.ctx.currentTime);
-    gain.gain.linearRampToValueAtTime(0.08, soundEngine.ctx.currentTime + 0.3);
-    gain.gain.linearRampToValueAtTime(0.01, soundEngine.ctx.currentTime + 0.6);
-    osc.connect(gain);
-    gain.connect(soundEngine.ctx.destination);
-    osc.start();
-    osc.stop(soundEngine.ctx.currentTime + 0.6);
+    const t = soundEngine.ctx.currentTime;
+    const duration = 0.8; // 稍微延长一点声音持续时间
+
+    // 1. 引擎核心低频 (Engine Hum)
+    // 使用两个稍微失谐的锯齿波产生拍频 (Beating effect)
+    const osc1 = soundEngine.ctx.createOscillator();
+    const osc2 = soundEngine.ctx.createOscillator();
+    const gainEngine = soundEngine.ctx.createGain();
+    
+    osc1.type = 'sawtooth';
+    osc2.type = 'sawtooth';
+    
+    // 频率包络：启动 -> 稳定 -> 停止
+    osc1.frequency.setValueAtTime(45, t);
+    osc1.frequency.linearRampToValueAtTime(60, t + 0.2);
+    osc1.frequency.linearRampToValueAtTime(40, t + duration);
+
+    osc2.frequency.setValueAtTime(48, t); // 稍微失谐
+    osc2.frequency.linearRampToValueAtTime(63, t + 0.2);
+    osc2.frequency.linearRampToValueAtTime(43, t + duration);
+
+    gainEngine.gain.setValueAtTime(0.1, t);
+    gainEngine.gain.linearRampToValueAtTime(0.15, t + 0.2);
+    gainEngine.gain.exponentialRampToValueAtTime(0.01, t + duration);
+
+    osc1.connect(gainEngine);
+    osc2.connect(gainEngine);
+    gainEngine.connect(soundEngine.ctx.destination);
+    
+    osc1.start();
+    osc2.start();
+    osc1.stop(t + duration);
+    osc2.stop(t + duration);
+
+    // 2. 履带轰鸣 (Track Rumble - Filtered Noise)
+    const bufferSize = soundEngine.ctx.sampleRate * duration;
+    const buffer = soundEngine.ctx.createBuffer(1, bufferSize, soundEngine.ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+        // 棕色噪声/粉红噪声近似 (简单的随机游走或积分)
+        // 这里用简单的白噪声 + 低通滤波模拟
+        data[i] = Math.random() * 2 - 1;
+    }
+
+    const noise = soundEngine.ctx.createBufferSource();
+    noise.buffer = buffer;
+
+    const noiseFilter = soundEngine.ctx.createBiquadFilter();
+    noiseFilter.type = 'lowpass';
+    noiseFilter.frequency.setValueAtTime(120, t);
+    noiseFilter.frequency.linearRampToValueAtTime(200, t + 0.3); // 移动时频率略微上升
+    noiseFilter.frequency.linearRampToValueAtTime(100, t + duration);
+
+    const noiseGain = soundEngine.ctx.createGain();
+    noiseGain.gain.setValueAtTime(0.1, t);
+    noiseGain.gain.linearRampToValueAtTime(0.2, t + 0.2);
+    noiseGain.gain.exponentialRampToValueAtTime(0.01, t + duration);
+
+    noise.connect(noiseFilter);
+    noiseFilter.connect(noiseGain);
+    noiseGain.connect(soundEngine.ctx.destination);
+    
+    noise.start();
   },
   playTurret: () => {
     // 机械摩擦声
@@ -190,6 +240,7 @@ export default function Game() {
   const [explosions, setExplosions] = useState([]); 
   const [isAnimating, setIsAnimating] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [showRules, setShowRules] = useState(false);
   
   // Projectiles: { id, from: {r,c}, to: {r,c}, delay }
   const [projectiles, setProjectiles] = useState([]); 
@@ -559,10 +610,10 @@ export default function Game() {
   const currentTheme = THEMES[theme];
 
   return (
-    <div className={`w-full min-h-screen ${currentTheme.ground} text-white flex flex-col items-center justify-center p-4 transition-colors duration-500 font-sans select-none`}>
+    <div className="w-full h-screen bg-[#0f0f0f] text-white flex flex-col transition-colors duration-500 font-sans select-none overflow-hidden" style={{ background: '#0f0f0f' }}>
       
       {/* Header */}
-      <div className="w-full max-w-xl flex flex-col md:flex-row justify-between items-center mb-6 gap-4 z-10">
+      <div className="w-full flex flex-col md:flex-row justify-between items-center px-4 py-4 gap-4 z-10">
         <div>
           <h1 className="text-3xl font-bold tracking-wider flex items-center gap-2">
             {currentTheme.icon} {currentTheme.name}
@@ -573,9 +624,16 @@ export default function Game() {
         </div>
         
         <div className="flex gap-2">
-           <button onClick={() => setSoundEnabled(!soundEnabled)} className="p-2 bg-white/10 rounded-lg hover:bg-white/20">
+           <button onClick={() => setSoundEnabled(!soundEnabled)} className="p-2 bg-white/10 rounded-lg hover:bg-white/20" title="音效">
              {soundEnabled ? <Volume2 size={16}/> : <VolumeX size={16}/>}
            </button>
+           <button 
+            onClick={() => setShowRules(true)}
+            className="p-2 bg-white/10 hover:bg-white/20 rounded-lg backdrop-blur-sm"
+            title="游戏规则"
+          >
+            <HelpCircle size={16} />
+          </button>
            <button 
             onClick={() => setTheme(t => t === 'land' ? 'sea' : 'land')}
             className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-sm backdrop-blur-sm"
@@ -591,10 +649,10 @@ export default function Game() {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-8 w-full max-w-5xl items-start justify-center">
+      <div className="flex flex-col lg:flex-row gap-4 w-full h-[calc(100vh-120px)] items-center justify-center px-4">
         
-        {/* Left: Game Board Area */}
-        <div className="relative group">
+        {/* Center: Game Board Area */}
+        <div className="relative group flex-1 flex items-center justify-center">
           
           {/* Status Bar */}
           <div className="absolute -top-14 left-0 w-full flex justify-between items-center px-2">
@@ -627,7 +685,7 @@ export default function Game() {
             style={{ boxShadow: '0 20px 50px -12px rgba(0,0,0,0.7)' }}
           >
             {/* The Game Area */}
-            <div className="relative" style={{ width: 'min(80vw, 400px)', height: 'min(80vw, 400px)' }}>
+            <div className="relative" style={{ width: 'min(90vw, min(90vh, 700px))', height: 'min(90vw, min(90vh, 700px))' }}>
                 
                 {/* Layer 1: Grid Background */}
                 <div className="absolute inset-0 grid grid-cols-4 gap-2">
@@ -776,8 +834,8 @@ export default function Game() {
           </div>
         </div>
 
-        {/* Right: Info Panel */}
-        <div className="w-full md:w-80 h-[450px] bg-black/20 rounded-xl border border-white/10 backdrop-blur flex flex-col overflow-hidden">
+        {/* Right: Battle Log Sidebar */}
+        <div className="w-full lg:w-80 lg:h-full h-48 bg-black/40 rounded-xl border border-white/20 backdrop-blur flex flex-col overflow-hidden shadow-2xl">
           <div className="p-4 border-b border-white/10 bg-white/5">
             <h3 className="font-bold flex items-center gap-2"><Sparkles size={16} className="text-yellow-400" /> 战场日志</h3>
           </div>
@@ -792,6 +850,99 @@ export default function Game() {
         </div>
 
       </div>
+
+      {/* Game Rules Modal */}
+      {showRules && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4" onClick={() => setShowRules(false)}>
+          <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl border-2 border-white/20 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl" onClick={e => e.stopPropagation()}>
+            <div className="sticky top-0 bg-gray-900/95 backdrop-blur border-b border-white/10 p-6 flex justify-between items-center">
+              <h2 className="text-2xl font-bold flex items-center gap-2">
+                <HelpCircle className="text-blue-400" /> 游戏规则说明
+              </h2>
+              <button onClick={() => setShowRules(false)} className="p-2 hover:bg-white/10 rounded-lg transition-colors">
+                <X size={24} />
+              </button>
+            </div>
+            
+            <div className="p-6 space-y-6 text-gray-200">
+              <section>
+                <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
+                  <Target className="text-green-400" size={20} /> 游戏目标
+                </h3>
+                <p className="leading-relaxed">
+                  消灭敌方部队，直到对方只剩下1个单位或更少。红方和蓝方轮流行动，先手通过掷骰子决定。
+                </p>
+              </section>
+
+              <section>
+                <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
+                  <Zap className="text-yellow-400" size={20} /> 基本规则
+                </h3>
+                <ul className="space-y-2 list-disc list-inside leading-relaxed">
+                  <li><strong>移动：</strong>每回合选择一个己方单位，移动到相邻的空格（上下左右）</li>
+                  <li><strong>旋转：</strong>单位移动前会自动转向移动方向</li>
+                  <li><strong>集火攻击：</strong>满足特定条件时，己方可以消灭敌方单位</li>
+                </ul>
+              </section>
+
+              <section>
+                <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
+                  <Swords className="text-red-400" size={20} /> 集火机制
+                </h3>
+                <p className="leading-relaxed mb-3">
+                  当己方移动后，在<strong>同一行或同一列</strong>形成以下模式之一时，可以消灭敌方单位：
+                </p>
+                <div className="bg-black/30 rounded-lg p-4 space-y-2 font-mono text-sm">
+                  <div>✅ <span className="text-red-400">己方</span> - <span className="text-red-400">己方</span> - <span className="text-blue-400">敌方</span> （两己夹敌，右侧）</div>
+                  <div>✅ <span className="text-blue-400">敌方</span> - <span className="text-red-400">己方</span> - <span className="text-red-400">己方</span> （两己夹敌，左侧）</div>
+                </div>
+                <p className="leading-relaxed mt-3">
+                  <strong className="text-yellow-300">注意：</strong>需要连续的3个单位，中间不能有空格！
+                </p>
+              </section>
+
+              <section>
+                <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
+                  <span className="text-purple-400">🛡️</span> 保护机制
+                </h3>
+                <ul className="space-y-2 list-disc list-inside leading-relaxed">
+                  <li><strong>友军保护：</strong>如果被夹击的敌方单位旁边有己方单位（同行/列），则不会被消灭</li>
+                  <li><strong>拥挤保护：</strong>如果某行或某列有超过3个单位，该行/列不会触发集火</li>
+                </ul>
+              </section>
+
+              <section>
+                <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
+                  <Bot className="text-purple-400" size={20} /> 游戏模式
+                </h3>
+                <ul className="space-y-2 list-disc list-inside leading-relaxed">
+                  <li><strong>双人对战 (PvP)：</strong>红蓝双方由玩家控制</li>
+                  <li><strong>人机对战 (PvE)：</strong>蓝方由电脑控制，红方由玩家控制</li>
+                </ul>
+              </section>
+
+              <section>
+                <h3 className="text-xl font-bold text-white mb-3">💡 策略提示</h3>
+                <ul className="space-y-2 list-disc list-inside leading-relaxed">
+                  <li>尽量保持单位分散，避免被对方集火</li>
+                  <li>主动创造 2v1 的夹击局面</li>
+                  <li>利用保护机制，让队友相邻站位</li>
+                  <li>注意拥挤保护：有时聚集也是一种防御策略</li>
+                </ul>
+              </section>
+            </div>
+
+            <div className="sticky bottom-0 bg-gray-900/95 backdrop-blur border-t border-white/10 p-4">
+              <button 
+                onClick={() => setShowRules(false)}
+                className="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-lg font-bold transition-all"
+              >
+                开始游戏
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
