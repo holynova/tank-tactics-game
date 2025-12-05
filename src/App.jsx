@@ -34,6 +34,7 @@ const App = () => {
   const [themeKey, setThemeKey] = useState('land');
   const [showRules, setShowRules] = useState(false);
   const [gameMode, setGameMode] = useState('pvp'); // 'pvp' or 'pve'
+  const [difficulty, setDifficulty] = useState('medium'); // 'easy', 'medium', 'hard'
   const [soundEnabled, setSoundEnabled] = useState(true);
 
   // --- Hooks ---
@@ -171,7 +172,8 @@ const App = () => {
 
   const handleCellClick = (r, c) => {
     if (phase !== 'playing' || winner || isAnimating) return;
-    if (gameMode === 'pve' && turn === 'blue') return;
+    // PvE: Player cannot move Red (Bot)
+    if (gameMode === 'pve' && turn === 'red') return;
   
     // First time interaction enables sound context
     initSoundContext();
@@ -242,20 +244,23 @@ const App = () => {
 
   // Bot Logic
   useEffect(() => {
-    if (phase === 'playing' && gameMode === 'pve' && turn === 'blue' && !winner && !isAnimating) {
+    // Bot plays as Red in PvE
+    if (phase === 'playing' && gameMode === 'pve' && turn === 'red' && !winner && !isAnimating) {
       const timer = setTimeout(() => {
-        const move = findBestMove(pieces, boardGrid);
+        const depthMap = { easy: 1, medium: 2, hard: 3 };
+        const depth = depthMap[difficulty] || 2;
+        
+        const move = findBestMove(pieces, boardGrid, depth, 'red');
         if (move) {
           performTurn(move.pieceId, move.to.r, move.to.c);
         } else {
-          // No moves available? Pass turn or game over?
-          // For now just switch turn to avoid stuck
-          setTurn('red');
+          // No moves available? Pass turn to avoid stuck
+          setTurn('blue');
         }
       }, 1000);
       return () => clearTimeout(timer);
     }
-  }, [phase, turn, winner, isAnimating, gameMode, pieces, boardGrid]);
+  }, [phase, turn, winner, isAnimating, gameMode, pieces, boardGrid, difficulty]);
 
   // Init Game on Mount
   useEffect(() => {
@@ -405,7 +410,13 @@ const App = () => {
             )}
 
             {phase === 'lobby' && (
-              <LobbyOverlay gameMode={gameMode} setGameMode={setGameMode} onStart={rollDice} />
+              <LobbyOverlay 
+                gameMode={gameMode} 
+                setGameMode={setGameMode} 
+                difficulty={difficulty}
+                setDifficulty={setDifficulty}
+                onStart={rollDice} 
+              />
             )}
             
             {phase === 'rolling' && (

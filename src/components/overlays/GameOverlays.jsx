@@ -1,12 +1,13 @@
 import React from 'react';
 import { Trophy, Zap, Bot, Users } from 'lucide-react';
 
-export const LobbyOverlay = ({ gameMode, setGameMode, onStart }) => (
+export const LobbyOverlay = ({ gameMode, setGameMode, difficulty, setDifficulty, onStart }) => (
   <div className="absolute inset-0 bg-black/80 backdrop-blur-md z-50 flex flex-col items-center justify-center rounded-lg p-6 text-center space-y-6">
     <div>
       <h2 className="text-2xl font-bold mb-2 text-white">装甲战术</h2>
       <p className="text-gray-400 text-sm">选择你的战场指挥方式</p>
     </div>
+    
     <div className="grid grid-cols-2 gap-4 w-full">
       <button 
         onClick={() => setGameMode('pvp')} 
@@ -29,6 +30,32 @@ export const LobbyOverlay = ({ gameMode, setGameMode, onStart }) => (
         <Bot size={32} /><span className="font-bold">人机对战</span>
       </button>
     </div>
+
+    {gameMode === 'pve' && (
+      <div className="w-full space-y-2">
+        <p className="text-xs text-gray-400 uppercase tracking-wider font-bold">AI 难度</p>
+        <div className="grid grid-cols-3 gap-2">
+          {[
+            { id: 'easy', label: '简单', color: 'text-green-400', border: 'border-green-500/50' },
+            { id: 'medium', label: '普通', color: 'text-yellow-400', border: 'border-yellow-500/50' },
+            { id: 'hard', label: '困难', color: 'text-red-400', border: 'border-red-500/50' }
+          ].map(level => (
+            <button
+              key={level.id}
+              onClick={() => setDifficulty(level.id)}
+              className={`py-2 rounded-lg border text-sm font-bold transition-all ${
+                difficulty === level.id 
+                  ? `${level.border} bg-white/10 ${level.color}` 
+                  : 'border-gray-700 text-gray-500 hover:bg-white/5'
+              }`}
+            >
+              {level.label}
+            </button>
+          ))}
+        </div>
+      </div>
+    )}
+
     <button 
       onClick={onStart} 
       className="w-full py-4 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-xl font-bold text-xl shadow-lg hover:scale-[1.02] transition-transform flex items-center justify-center gap-2"
