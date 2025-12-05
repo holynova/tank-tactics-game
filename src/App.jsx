@@ -303,7 +303,7 @@ const App = () => {
             style={{ boxShadow: '0 20px 50px -12px rgba(0,0,0,0.7)' }}
           >
             {/* The Game Area */}
-            <div className="relative" style={{ width: 'min(90vw, min(90vh, 700px))', height: 'min(90vw, min(90vh, 700px))' }}>
+            <div className="relative" style={{ width: 'min(90vw, min(calc(100vh - 250px), 700px))', height: 'min(90vw, min(calc(100vh - 250px), 700px))' }}>
                 
                 {/* Layer 1: Grid Background */}
                 <div className="absolute inset-0 grid grid-cols-4 gap-2">
