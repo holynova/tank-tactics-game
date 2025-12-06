@@ -1,6 +1,10 @@
-import React from 'react';
+import { PlayerColor } from '../types/game';
 
-export const TankAsset = ({ color }) => (
+interface AssetProps {
+  color: PlayerColor;
+}
+
+export const TankAsset = ({ color }: AssetProps) => (
   <svg viewBox="0 0 100 100" className={`w-full h-full drop-shadow-lg ${color === 'red' ? 'text-red-600' : 'text-blue-600'}`} style={{ pointerEvents: 'none' }}>
     <rect x="15" y="10" width="15" height="80" rx="4" fill="#222" />
     <rect x="70" y="10" width="15" height="80" rx="4" fill="#222" />
@@ -14,7 +18,7 @@ export const TankAsset = ({ color }) => (
   </svg>
 );
 
-export const ShipAsset = ({ color }) => (
+export const ShipAsset = ({ color }: AssetProps) => (
   <svg viewBox="0 0 100 100" className={`w-full h-full drop-shadow-lg ${color === 'red' ? 'text-red-600' : 'text-blue-600'}`} style={{ pointerEvents: 'none' }}>
     <path d="M50 5 L80 25 L80 85 C80 95 50 100 50 100 C50 100 20 95 20 85 L20 25 Z" fill="currentColor" />
     <rect x="45" y="25" width="10" height="60" fill="rgba(0,0,0,0.3)" />
@@ -32,7 +36,7 @@ export const ProjectileAsset = () => (
 );
 
 // Helper to get asset by type
-export const getUnitAsset = (unitType, color) => {
+export const getUnitAsset = (unitType: string, color: PlayerColor) => {
   if (unitType === 'tank') {
     return <TankAsset color={color} />;
   }

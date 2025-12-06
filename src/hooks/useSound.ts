@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 import soundEngine from '../utils/soundEngine';
 
+export type SoundType = 'click' | 'motor' | 'turret' | 'fire' | 'explode' | 'dice';
+
 /**
  * Custom hook for managing game sounds
- * @param {boolean} enabled - Whether sound is enabled
- * @returns {Object} Sound control functions
  */
-export const useSound = (enabled) => {
-  const playSound = useCallback((type) => {
+export const useSound = (enabled: boolean) => {
+  const playSound = useCallback((type: SoundType) => {
     if (!enabled) return;
     soundEngine.init();
     

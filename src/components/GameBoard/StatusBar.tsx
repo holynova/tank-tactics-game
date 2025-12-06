@@ -1,7 +1,16 @@
-import React from 'react';
 import { Bot, Users, Swords } from 'lucide-react';
 
-const StatusBar = ({ turn, winner, isAnimating, gameMode, unitType }) => {
+import { PlayerColor, GameMode } from '../../types/game';
+
+interface StatusBarProps {
+  turn: PlayerColor;
+  winner: PlayerColor | null;
+  isAnimating: boolean;
+  gameMode: GameMode;
+  unitType: 'tank' | 'ship';
+}
+
+const StatusBar = ({ turn, winner, isAnimating, gameMode, unitType }: StatusBarProps) => {
   return (
     <div className="flex justify-between items-center w-full max-w-[700px] px-4">
       {/* Blue Team */}

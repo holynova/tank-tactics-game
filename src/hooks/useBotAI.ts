@@ -1,9 +1,7 @@
 import { getValidMoves, buildGrid } from '../rules';
 import { checkEatingCondition } from '../rules/eatingRules';
-import { SIZE } from '../constants/gameConfig';
-
+import { Piece, PlayerColor, Grid } from '../types/game';
 // --- Constants ---
-const MAX_DEPTH = 3;
 const SCORES = {
   WIN: 10000,
   LOSS: -10000,
@@ -16,7 +14,7 @@ const SCORES = {
 /**
  * Evaluate the board state for the maximizing player
  */
-const evaluateBoard = (pieces, turn, botColor) => {
+const evaluateBoard = (pieces: Piece[], botColor: PlayerColor): number => {
   const botPieces = pieces.filter(p => p.color === botColor);
   const enemyPieces = pieces.filter(p => p.color !== botColor);
 
@@ -39,12 +37,18 @@ const evaluateBoard = (pieces, turn, botColor) => {
   return score;
 };
 
+interface Move {
+  pieceId: string;
+  from: Piece;
+  to: { r: number; c: number };
+}
+
 /**
  * Get all valid moves for a specific color
  */
-const getAllValidMoves = (pieces, grid, color) => {
+const getAllValidMoves = (pieces: Piece[], grid: Grid, color: PlayerColor): Move[] => {
   const myPieces = pieces.filter(p => p.color === color);
-  let allMoves = [];
+  let allMoves: Move[] = [];
   
   myPieces.forEach(p => {
     const moves = getValidMoves(p.r, p.c, grid);
@@ -60,7 +64,7 @@ const getAllValidMoves = (pieces, grid, color) => {
 /**
  * Simulate a move and return new pieces state
  */
-const simulateMove = (pieces, move, color) => {
+const simulateMove = (pieces: Piece[], move: Move, color: PlayerColor): Piece[] => {
   // 1. Move
   let nextPieces = pieces.map(p => 
     p.id === move.pieceId ? { ...p, r: move.to.r, c: move.to.c } : p
@@ -81,15 +85,15 @@ const simulateMove = (pieces, move, color) => {
 /**
  * Minimax with Alpha-Beta Pruning
  */
-const minimax = (pieces, depth, alpha, beta, isMaximizing, botColor) => {
-  const enemyColor = botColor === 'red' ? 'blue' : 'red';
+const minimax = (pieces: Piece[], depth: number, alpha: number, beta: number, isMaximizing: boolean, botColor: PlayerColor): number => {
+  const enemyColor: PlayerColor = botColor === 'red' ? 'blue' : 'red';
 
   // Terminal state or max depth
   const botCount = pieces.filter(p => p.color === botColor).length;
   const enemyCount = pieces.filter(p => p.color === enemyColor).length;
   
   if (depth === 0 || botCount <= 1 || enemyCount <= 1) {
-    return evaluateBoard(pieces, null, botColor);
+    return evaluateBoard(pieces, botColor);
   }
 
   const grid = buildGrid(pieces);
@@ -99,7 +103,7 @@ const minimax = (pieces, depth, alpha, beta, isMaximizing, botColor) => {
     let maxEval = -Infinity;
     const moves = getAllValidMoves(pieces, grid, botColor);
     
-    if (moves.length === 0) return evaluateBoard(pieces, null, botColor);
+    if (moves.length === 0) return evaluateBoard(pieces, botColor);
 
     for (const move of moves) {
       const nextPieces = simulateMove(pieces, move, botColor);
@@ -114,7 +118,7 @@ const minimax = (pieces, depth, alpha, beta, isMaximizing, botColor) => {
     let minEval = Infinity;
     const moves = getAllValidMoves(pieces, grid, enemyColor);
 
-    if (moves.length === 0) return evaluateBoard(pieces, null, botColor);
+    if (moves.length === 0) return evaluateBoard(pieces, botColor);
 
     for (const move of moves) {
       const nextPieces = simulateMove(pieces, move, enemyColor);
@@ -129,17 +133,17 @@ const minimax = (pieces, depth, alpha, beta, isMaximizing, botColor) => {
 
 /**
  * Bot AI logic for making automated moves using Minimax
- * @param {Array<Object>} pieces - Current pieces on board
- * @param {Array<Array<Object|null>>} boardGrid - Current board grid
- * @param {number} depth - Search depth (Difficulty)
- * @param {string} botColor - Color of the bot ('red' or 'blue')
- * @returns {{pieceId: string, from: Object, to: Object}|null} Best move or null if no moves available
  */
-export const findBestMove = (pieces, boardGrid, depth = 3, botColor = 'red') => {
+export const findBestMove = (
+  pieces: Piece[], 
+  boardGrid: Grid, 
+  depth: number = 3, 
+  botColor: PlayerColor = 'red'
+): Move | null => {
   const moves = getAllValidMoves(pieces, boardGrid, botColor);
   if (moves.length === 0) return null;
 
-  let bestMove = null;
+  let bestMove: Move | null = null;
   let bestValue = -Infinity;
   const alpha = -Infinity;
   const beta = Infinity;

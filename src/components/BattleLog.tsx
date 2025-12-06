@@ -1,8 +1,12 @@
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { Sparkles } from 'lucide-react';
 
-const BattleLog = ({ logs }) => {
-  const logsEndRef = useRef(null);
+interface BattleLogProps {
+  logs: string[];
+}
+
+const BattleLog = ({ logs }: BattleLogProps) => {
+  const logsEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (logsEndRef.current) {

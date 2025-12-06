@@ -1,9 +1,9 @@
+import { Piece, PlayerColor } from '../types/game';
+
 /**
  * Check win condition
- * @param {Array<Object>} pieces - Current pieces on board
- * @returns {{hasWinner: boolean, winner: string|null}}
  */
-export const checkWinCondition = (pieces) => {
+export const checkWinCondition = (pieces: Piece[]): { hasWinner: boolean; winner: PlayerColor | null } => {
   const redCount = pieces.filter(p => p.color === 'red').length;
   const blueCount = pieces.filter(p => p.color === 'blue').length;
 

@@ -1,19 +1,24 @@
 import { SIZE } from '../constants/gameConfig';
+import { Grid, Piece, PlayerColor } from '../types/game';
+
+interface EatingResult {
+  eatenPieces: Piece[];
+  attackers: Piece[];
+}
 
 /**
  * Check eating condition and return details about attackers and victims
  * This is the core game rule for the 2v1 attack mechanism
- * 
- * @param {Array<Array<Object|null>>} currentGrid - Current board state
- * @param {number} lastR - Row where the last move was made
- * @param {number} lastC - Column where the last move was made
- * @param {string} attackerColor - Color of the attacking side ('red' or 'blue')
- * @returns {{eatenPieces: Array<Object>, attackers: Array<Object>}}
  */
-export const checkEatingCondition = (currentGrid, lastR, lastC, attackerColor) => {
-  let result = { eatenPieces: [], attackers: [] };
+export const checkEatingCondition = (
+  currentGrid: Grid,
+  lastR: number,
+  lastC: number,
+  attackerColor: PlayerColor
+): EatingResult => {
+  let result: EatingResult = { eatenPieces: [], attackers: [] };
   
-  const scanLine = (lineArr) => {
+  const scanLine = (lineArr: (Piece | null)[]) => {
     // Crowding Protection: If line has > 3 pieces, NO EATING
     const pieceCount = lineArr.filter(p => p !== null).length;
     if (pieceCount > 3) return;
@@ -28,8 +33,8 @@ export const checkEatingCondition = (currentGrid, lastR, lastC, attackerColor) =
 
       const pattern = [p1.color, p2.color, p3.color].join('');
       
-      let victim = null;
-      let localAttackers = [];
+      let victim: Piece | null = null;
+      let localAttackers: Piece[] = [];
 
       // Pattern A-A-V (two attackers then victim)
       if (pattern === `${attackerColor}${attackerColor}${victimColor}`) {
@@ -59,7 +64,9 @@ export const checkEatingCondition = (currentGrid, lastR, lastC, attackerColor) =
   };
 
   // Scan the row where the move happened
-  scanLine(currentGrid[lastR]);
+  if (currentGrid[lastR]) {
+    scanLine(currentGrid[lastR]);
+  }
   
   // Scan the column where the move happened
   const colArr = currentGrid.map(row => row[lastC]);
@@ -73,11 +80,9 @@ export const checkEatingCondition = (currentGrid, lastR, lastC, attackerColor) =
 
 /**
  * Build a grid from pieces array
- * @param {Array<Object>} pieces - Array of piece objects
- * @returns {Array<Array<Object|null>>} 2D grid representation
  */
-export const buildGrid = (pieces) => {
-  const grid = Array(SIZE).fill(null).map(() => Array(SIZE).fill(null));
+export const buildGrid = (pieces: Piece[]): Grid => {
+  const grid: Grid = Array(SIZE).fill(null).map(() => Array(SIZE).fill(null));
   pieces.forEach(p => {
     grid[p.r][p.c] = p;
   });

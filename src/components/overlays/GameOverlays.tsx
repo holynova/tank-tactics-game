@@ -1,7 +1,16 @@
-import React from 'react';
 import { Trophy, Zap, Bot, Users } from 'lucide-react';
 
-export const LobbyOverlay = ({ gameMode, setGameMode, difficulty, setDifficulty, onStart }) => (
+import { GameMode, Difficulty, DiceResult, PlayerColor } from '../../types/game';
+
+interface LobbyOverlayProps {
+  gameMode: GameMode;
+  setGameMode: (mode: GameMode) => void;
+  difficulty: Difficulty;
+  setDifficulty: (diff: Difficulty) => void;
+  onStart: () => void;
+}
+
+export const LobbyOverlay = ({ gameMode, setGameMode, difficulty, setDifficulty, onStart }: LobbyOverlayProps) => (
   <div className="absolute inset-0 bg-black/80 backdrop-blur-md z-50 flex flex-col items-center justify-center rounded-lg p-6 text-center space-y-6">
     <div>
       <h2 className="text-2xl font-bold mb-2 text-white">装甲战术</h2>
@@ -42,7 +51,7 @@ export const LobbyOverlay = ({ gameMode, setGameMode, difficulty, setDifficulty,
           ].map(level => (
             <button
               key={level.id}
-              onClick={() => setDifficulty(level.id)}
+              onClick={() => setDifficulty(level.id as Difficulty)}
               className={`py-2 rounded-lg border text-sm font-bold transition-all ${
                 difficulty === level.id 
                   ? `${level.border} bg-white/10 ${level.color}` 
@@ -65,7 +74,11 @@ export const LobbyOverlay = ({ gameMode, setGameMode, difficulty, setDifficulty,
   </div>
 );
 
-export const RollingOverlay = ({ diceResult }) => (
+interface RollingOverlayProps {
+  diceResult: DiceResult;
+}
+
+export const RollingOverlay = ({ diceResult }: RollingOverlayProps) => (
   <div className="absolute inset-0 bg-black/70 backdrop-blur-sm z-50 flex flex-col items-center justify-center rounded-lg">
     <div className="flex gap-12 text-center">
       <div><div className="text-5xl font-black text-red-500">{diceResult.red}</div>红方</div>
@@ -74,7 +87,12 @@ export const RollingOverlay = ({ diceResult }) => (
   </div>
 );
 
-export const GameOverOverlay = ({ winner, onRestart }) => (
+interface GameOverOverlayProps {
+  winner: PlayerColor | null;
+  onRestart: () => void;
+}
+
+export const GameOverOverlay = ({ winner, onRestart }: GameOverOverlayProps) => (
   <div className="absolute inset-0 bg-black/60 backdrop-blur-sm z-50 flex flex-col items-center justify-center rounded-lg animate-in fade-in zoom-in">
     <Trophy size={64} className="text-yellow-400 mb-4 drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]" />
     <h2 className="text-4xl font-black text-white mb-2 tracking-widest uppercase">

@@ -1,12 +1,23 @@
 // Sound Engine using Web Audio API
-const soundEngine = {
+
+interface SoundEngine {
+  ctx: AudioContext | null;
+  init: () => void;
+  playTone: (freq?: number, type?: OscillatorType, duration?: number, vol?: number) => void;
+  playMotor: () => void;
+  playTurret: () => void;
+  playFire: () => void;
+  playExplosion: () => void;
+}
+
+const soundEngine: SoundEngine = {
   ctx: null,
   
   init: () => {
     if (!soundEngine.ctx) {
-      soundEngine.ctx = new (window.AudioContext || window.webkitAudioContext)();
+      soundEngine.ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
     }
-    if (soundEngine.ctx.state === 'suspended') {
+    if (soundEngine.ctx && soundEngine.ctx.state === 'suspended') {
       soundEngine.ctx.resume();
     }
   },

@@ -1,6 +1,18 @@
 import { Target, Anchor } from 'lucide-react';
+import { ReactNode } from 'react';
 
-export const THEMES = {
+export interface Theme {
+  name: string;
+  bg: string;
+  board: string;
+  cell: string;
+  gridLines: string;
+  icon: ReactNode;
+  unitType: 'tank' | 'ship';
+  ground: string;
+}
+
+export const THEMES: Record<string, Theme> = {
   land: {
     name: '陆战风云',
     bg: 'bg-stone-800',

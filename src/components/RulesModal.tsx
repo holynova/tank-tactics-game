@@ -1,7 +1,10 @@
-import React from 'react';
 import { HelpCircle, X, Target, Zap, Swords, Bot } from 'lucide-react';
 
-const RulesModal = ({ onClose }) => {
+interface RulesModalProps {
+  onClose: () => void;
+}
+
+const RulesModal = ({ onClose }: RulesModalProps) => {
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4" onClick={onClose}>
       <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl border-2 border-white/20 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl" onClick={e => e.stopPropagation()}>

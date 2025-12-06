@@ -1,5 +1,17 @@
-import React from 'react';
 import { RefreshCw, Volume2, VolumeX, HelpCircle } from 'lucide-react';
+
+import { Theme } from '../constants/themes';
+import { GameMode } from '../types/game';
+
+interface HeaderProps {
+  theme: Theme;
+  gameMode: GameMode;
+  soundEnabled: boolean;
+  onToggleSound: () => void;
+  onToggleTheme: () => void;
+  onShowRules: () => void;
+  onReset: () => void;
+}
 
 const Header = ({ 
   theme, 
@@ -9,7 +21,7 @@ const Header = ({
   onToggleTheme, 
   onShowRules, 
   onReset 
-}) => {
+}: HeaderProps) => {
   return (
     <div className="w-full flex flex-col md:flex-row justify-between items-center px-4 py-4 gap-4 z-10">
       <div>

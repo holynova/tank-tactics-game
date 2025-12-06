@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 // Components
 import { Header, BattleLog, RulesModal, StatusBar } from './components';
@@ -18,28 +18,30 @@ import { SIZE, ANIM_DURATION_ROTATE, ANIM_DURATION_MOVE, ANIM_DURATION_PROJECTIL
 import { THEMES } from './constants/themes';
 import { getUnitAsset, ProjectileAsset } from './constants/assets';
 
+// Types
+import { Piece, PlayerColor, GamePhase, DiceResult, GameMode, Difficulty, Projectile, Explosion } from './types/game';
+
 const App = () => {
   // --- State ---
-  const [pieces, setPieces] = useState([]);
-  const [turn, setTurn] = useState('red'); // 'red' or 'blue'
-  const [selectedId, setSelectedId] = useState(null);
-  const [phase, setPhase] = useState('lobby'); // lobby, rolling, playing, gameover
-  const [diceResult, setDiceResult] = useState({ red: 0, blue: 0 });
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [logs, setLogs] = useState([]);
-  const [winner, setWinner] = useState(null);
-  const [projectiles, setProjectiles] = useState([]);
-  const [explosions, setExplosions] = useState([]); // {id, r, c}
-  const [lastMovePos, setLastMovePos] = useState(null);
-  const [themeKey, setThemeKey] = useState('land');
-  const [showRules, setShowRules] = useState(false);
-  const [gameMode, setGameMode] = useState('pvp'); // 'pvp' or 'pve'
-  const [difficulty, setDifficulty] = useState('medium'); // 'easy', 'medium', 'hard'
-  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [pieces, setPieces] = useState<Piece[]>([]);
+  const [turn, setTurn] = useState<PlayerColor>('red'); // 'red' or 'blue'
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [phase, setPhase] = useState<GamePhase>('lobby'); // lobby, rolling, playing, gameover
+  const [diceResult, setDiceResult] = useState<DiceResult>({ red: 0, blue: 0 });
+  const [isAnimating, setIsAnimating] = useState<boolean>(false);
+  const [logs, setLogs] = useState<string[]>([]);
+  const [winner, setWinner] = useState<PlayerColor | null>(null);
+  const [projectiles, setProjectiles] = useState<Projectile[]>([]);
+  const [explosions, setExplosions] = useState<Explosion[]>([]); // {id, r, c}
+  const [lastMovePos, setLastMovePos] = useState<{r: number, c: number} | null>(null);
+  const [themeKey, setThemeKey] = useState<keyof typeof THEMES>('land');
+  const [showRules, setShowRules] = useState<boolean>(false);
+  const [gameMode, setGameMode] = useState<GameMode>('pvp'); // 'pvp' or 'pve'
+  const [difficulty, setDifficulty] = useState<Difficulty>('medium'); // 'easy', 'medium', 'hard'
+  const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
 
   // --- Hooks ---
   const { playSound, initSoundContext } = useSound(soundEnabled);
-  const logsEndRef = useRef(null);
 
   // --- Derived State ---
   const theme = THEMES[themeKey];
@@ -47,12 +49,12 @@ const App = () => {
 
   // --- Game Logic ---
 
-  const addLog = (msg) => {
+  const addLog = (msg: string) => {
     setLogs(prev => [...prev, msg]);
   };
 
   const initGame = () => {
-    const initialPieces = [];
+    const initialPieces: Piece[] = [];
     // Red (Top)
     for (let i = 0; i < SIZE; i++) {
       initialPieces.push({ id: `r-${i}`, color: 'red', r: 0, c: i, angle: 180 });
@@ -73,7 +75,7 @@ const App = () => {
     setProjectiles([]);
   };
 
-  const triggerExplosion = (r, c) => {
+  const triggerExplosion = (r: number, c: number) => {
     const id = Date.now() + Math.random();
     setExplosions(prev => [...prev, { id, r, c }]);
     setTimeout(() => {
@@ -81,7 +83,7 @@ const App = () => {
     }, 1000);
   };
 
-  const checkWin = (currentPieces) => {
+  const checkWin = (currentPieces: Piece[]) => {
     const { hasWinner, winner: newWinner } = checkWinCondition(currentPieces);
     if (hasWinner) {
       setWinner(newWinner);
@@ -94,10 +96,12 @@ const App = () => {
     }
   };
 
-  const performTurn = async (pieceId, toR, toC) => {
+  const performTurn = async (pieceId: string | null, toR: number, toC: number) => {
+    if (!pieceId) return;
     setIsAnimating(true);
     setSelectedId(null);
     const piece = pieces.find(p => p.id === pieceId);
+    if (!piece) return;
     
     // 1. ROTATE
     const targetAngle = getRotationAngle(piece.r, piece.c, toR, toC);
@@ -145,8 +149,8 @@ const App = () => {
   
         // 5. FIRE ANIMATION (Projectiles)
         playSound('fire');
-        const newProjectiles = attackers.map(atk => ({
-            id: Date.now() + atk.id,
+        const newProjectiles: Projectile[] = attackers.map(atk => ({
+            id: Date.now() + Number(atk.id.split('-')[1]), // Simple unique ID generation
             from: { r: atk.r, c: atk.c },
             to: { r: victim.r, c: victim.c }
         }));
@@ -170,7 +174,7 @@ const App = () => {
     }
   };
 
-  const handleCellClick = (r, c) => {
+  const handleCellClick = (r: number, c: number) => {
     if (phase !== 'playing' || winner || isAnimating) return;
     // PvE: Player cannot move Red (Bot)
     if (gameMode === 'pve' && turn === 'red') return;
@@ -206,7 +210,7 @@ const App = () => {
     }
   };
 
-  const finishRolling = (finalResult) => {
+  const finishRolling = (finalResult: DiceResult) => {
     setPhase('playing');
     if (finalResult.red > finalResult.blue) {
       setTurn('red');
@@ -362,7 +366,7 @@ const App = () => {
                                     '--sx': `${startX}%`, '--sy': `${startY}%`,
                                     '--ex': `${endX}%`, '--ey': `${endY}%`,
                                     animation: `projectileFlight ${ANIM_DURATION_PROJECTILE}ms linear forwards`
-                                }}
+                                } as React.CSSProperties}
                              >
                                  <ProjectileAsset />
                              </div>

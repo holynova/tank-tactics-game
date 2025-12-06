@@ -1,14 +1,10 @@
 import { SIZE } from '../constants/gameConfig';
+import { Grid } from '../types/game';
 
 /**
  * Get the rotation angle based on movement direction
- * @param {number} r1 - Starting row
- * @param {number} c1 - Starting column
- * @param {number} r2 - Target row
- * @param {number} c2 - Target column
- * @returns {number} Rotation angle in degrees
  */
-export const getRotationAngle = (r1, c1, r2, c2) => {
+export const getRotationAngle = (r1: number, c1: number, r2: number, c2: number): number => {
   if (r2 < r1) return 0;   // Up
   if (r2 > r1) return 180; // Down
   if (c2 < c1) return 270; // Left
@@ -18,13 +14,9 @@ export const getRotationAngle = (r1, c1, r2, c2) => {
 
 /**
  * Get valid moves for a piece at given position
- * @param {number} r - Current row
- * @param {number} c - Current column
- * @param {Array<Array<Object|null>>} grid - Current board grid
- * @returns {Array<{r: number, c: number}>} Array of valid move positions
  */
-export const getValidMoves = (r, c, grid) => {
-  const moves = [];
+export const getValidMoves = (r: number, c: number, grid: Grid): { r: number; c: number }[] => {
+  const moves: { r: number; c: number }[] = [];
   const dirs = [[-1, 0], [1, 0], [0, -1], [0, 1]];
   
   dirs.forEach(([dr, dc]) => {
