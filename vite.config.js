@@ -3,5 +3,5 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/tank-tactics-game/',
+  base: process.env.GITHUB_PAGES ? '/tank-tactics-game/' : './',
 })

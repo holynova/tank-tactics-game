@@ -14,6 +14,8 @@
 
 访问 GitHub Pages 在线体验：[https://holynova.github.io/tank-tactics-game/](https://holynova.github.io/tank-tactics-game/)
 
+Cloudflare 静态预览：[tank-tactics-game.xiaosang.cc](https://tank-tactics-game.xiaosang.cc/)
+
 ## 💻 本地开发
 
 ```bash
@@ -51,7 +53,7 @@ pnpm preview
 
 本项目使用 GitHub Actions 自动部署到 GitHub Pages。
 
-每次推送到 `main` 分支时，会自动触发构建和部署流程。
+每次推送到 `main` 分支时，会自动触发 `pnpm run build:pages` 构建和部署流程；Cloudflare 使用默认的 `pnpm run build` 输出 `dist`。
 
 ## 📝 License
 
