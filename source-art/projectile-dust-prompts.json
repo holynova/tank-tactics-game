@@ -1,0 +1,12 @@
+[
+  {
+    "name": "fx-shell",
+    "prompt": "Use case: stylized-concept. Production raster game effect asset. ONE isolated horizontally aligned artillery shell sprite pointing RIGHT, strict top-down overhead view. Small copper steel shell with pointed bright warm ivory nose at RIGHT and darker brass tail at LEFT, tiny metallic pixel facets and warm light glints. Keep the shell slim, length 70% of square canvas, thickness 12% of canvas height. No flames, smoke, background, ground, text, labels, shadows extending outside sprite, effects sheet or additional shells. Refined high-bit handcrafted pixel art matching detailed military game units. Actual transparent alpha.",
+    "path": "/Users/sym/.codex/generated_images/01a0f7c0-e921-75f2-876d-46170aa8afa4/exec-6c684778-05f5-4a63-9e60-2ad4db68608c.png"
+  },
+  {
+    "name": "fx-dust",
+    "prompt": "Use case: stylized-concept. Production raster game effect asset. Exactly FOUR frames in ONE horizontal row of equal square slots: a light tan dusty plume developing behind a moving military tank, directly overhead view. Frame 1 small sand puff, frame 2 larger warm grey ochre plume with scattered tiny dust grains, frame 3 a softly dispersing dusty cloud, frame 4 thinner fading dust. Keep dust relatively subtle and translucent, detailed pixel clusters, not thick orange fire. Fixed center in every slot, empty transparent padding around each, no terrain, tank, text, labels, frame, black background, perspective or UI. Real transparent alpha. Premium high-bit handcrafted game pixel art.",
+    "path": "/Users/sym/.codex/generated_images/01a0f7c0-e921-75f2-876d-46170aa8afa4/exec-7a45e10d-4fe7-4b84-b0cf-8412dd6d47f6.png"
+  }
+]

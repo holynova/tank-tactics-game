@@ -1,0 +1,128 @@
+[
+  {
+    "name": "tank-red",
+    "source": "source-art/tank-red.png",
+    "prompt": "Use case: stylized-concept. Production game asset: ONE transparent top-down unit sprite for a premium pixel-art 4x4 tactics game. Red faction siege tank: broad rectangular heavy tracked hull, large round cast-metal turret, ONE thick short cannon pointing straight up, external rear fuel drums, thick exposed double tracks. Oxblood/burnt red armor, copper and warm ivory edge wear. This is the heavy industrial faction. Style matches beautifully detailed handcrafted high-bit military pixel art, crisp discrete pixel clusters, rich material shading, bolts, vents, edge wear, refined limited palette. Strict orthographic directly overhead view, NO isometric or side perspective. Unit centered at (50%,50%), occupies 70% of canvas width and 85% of canvas height. Front and barrel at TOP, back at BOTTOM, vertically symmetrical. Soft upper-left lighting, compact shadow integrated underneath only. Entire unit visible with generous transparent padding. This is a usable isolated game sprite, no environment, no ground, no text, logos, frame, scenery, water, wake, or background. Actual alpha transparent canvas. Square image. No SVG/vector appearance, smooth 3D, blur, labels.",
+    "tool": "ChatGPT built-in imagegen",
+    "reference": null
+  },
+  {
+    "name": "tank-blue",
+    "source": "source-art/tank-blue.png",
+    "prompt": "Use case: stylized-concept. Production game asset: ONE transparent top-down unit sprite for a premium pixel-art 4x4 tactics game. Blue faction reconnaissance tank: narrow angular wedge hull, faceted hexagonal turret, ONE long slender cannon pointing straight up, side skirts covering much of the tracks, two pale cyan headlights at front corners and rear cooling grilles. Deep navy/steel blue armor, ice-blue edge wear. Clearly lighter and narrower than the heavy round-turret red tank. Style matches beautifully detailed handcrafted high-bit military pixel art, crisp discrete pixel clusters, rich material shading, bolts, vents, edge wear, refined limited palette. Strict orthographic directly overhead view, NO isometric or side perspective. Unit centered at (50%,50%), occupies 70% of canvas width and 85% of canvas height. Front and barrel at TOP, back at BOTTOM, vertically symmetrical. Soft upper-left lighting, compact shadow integrated underneath only. Entire unit visible with generous transparent padding. This is a usable isolated game sprite, no environment, no ground, no text, logos, frame, scenery, water, wake, or background. Actual alpha transparent canvas. Square image. No SVG/vector appearance, smooth 3D, blur, labels.",
+    "tool": "ChatGPT built-in imagegen",
+    "reference": null
+  },
+  {
+    "name": "ship-red",
+    "source": "source-art/ship-red.png",
+    "prompt": "Use case: stylized-concept. Production game asset: ONE transparent top-down unit sprite for a premium pixel-art 4x4 tactics game. Red faction heavy battleship: broad elongated pointed-bow hull, THREE round triple-gun turrets lined up along the deck, bulky armored bridge with paired square funnels, warm wood-colored deck, oxblood red armor panels with copper edges. Bow points straight up. Heavy industrial silhouette. Style matches beautifully detailed handcrafted high-bit military pixel art, crisp discrete pixel clusters, rich material shading, bolts, vents, edge wear, refined limited palette. Strict orthographic directly overhead view, NO isometric or side perspective. Unit centered at (50%,50%), occupies 70% of canvas width and 85% of canvas height. Front and barrel at TOP, back at BOTTOM, vertically symmetrical. Soft upper-left lighting, compact shadow integrated underneath only. Entire unit visible with generous transparent padding. This is a usable isolated game sprite, no environment, no ground, no text, logos, frame, scenery, water, wake, or background. Actual alpha transparent canvas. Square image. No SVG/vector appearance, smooth 3D, blur, labels.",
+    "tool": "ChatGPT built-in imagegen",
+    "reference": null
+  },
+  {
+    "name": "ship-blue",
+    "source": "source-art/ship-blue.png",
+    "prompt": "Use case: stylized-concept. Production game asset: ONE transparent top-down unit sprite for a premium pixel-art 4x4 tactics game. Blue faction fast missile destroyer: long very narrow pointed-bow hull, angular modern stealth bridge, ONE angular forward gun turret, rectangular midship missile-launcher cells, flat rear helicopter deck with a simple circular marking, navy/steel-blue armor with cyan edges. Bow points straight up. Sleek futuristic silhouette very different from a red battleship. Style matches beautifully detailed handcrafted high-bit military pixel art, crisp discrete pixel clusters, rich material shading, bolts, vents, edge wear, refined limited palette. Strict orthographic directly overhead view, NO isometric or side perspective. Unit centered at (50%,50%), occupies 70% of canvas width and 85% of canvas height. Front and barrel at TOP, back at BOTTOM, vertically symmetrical. Soft upper-left lighting, compact shadow integrated underneath only. Entire unit visible with generous transparent padding. This is a usable isolated game sprite, no environment, no ground, no text, logos, frame, scenery, water, wake, or background. Actual alpha transparent canvas. Square image. No SVG/vector appearance, smooth 3D, blur, labels.",
+    "tool": "ChatGPT built-in imagegen",
+    "reference": null
+  },
+  {
+    "name": "terrain-land",
+    "source": "source-art/terrain-land.png",
+    "prompt": "Use case: stylized-concept. Production raster game asset. A seamless square directly-overhead game terrain texture of sandy olive earth, scattered small stones and sparse dry grass, subtle old curved tread impressions. Rich handcrafted pixel texture with low contrast, calm empty playable space. NO units, buildings, grid, borders, obstacles, UI, text, perspective. Uniform material across entire image, all four edges join seamlessly. Fine tactical-game pixels with muted olive ochre, dust and earthy browns.",
+    "tool": "ChatGPT built-in imagegen",
+    "reference": null
+  },
+  {
+    "name": "terrain-sea",
+    "source": "source-art/terrain-sea.png",
+    "prompt": "Use case: stylized-concept. Production raster game asset. A seamless square directly-overhead game terrain texture of deep teal-blue open ocean water. Beautiful restrained ripples, little white seafoam and cyan glints, subtle depth variations. Rich high-bit pixel-art clusters, not a photograph. NO land, units, boats, islands, grid, frame, text or perspective. Uniform calm texture all across image, all four edges join seamlessly. Low contrast suitable under clearly readable warship sprites.",
+    "tool": "ChatGPT built-in imagegen",
+    "reference": null
+  },
+  {
+    "name": "scene-lobby",
+    "source": "source-art/scene-lobby.png",
+    "prompt": "Use case: stylized-concept. Production raster game asset. A cinematic wide landscape premium military pixel-art illustration for the start screen of a strategy game. A broad oxblood red heavy tank with a round turret on the LEFT faces a slender angular navy-blue reconnaissance tank on the RIGHT, each perched on opposite dusty ridges facing the center; behind them a distant teal sea with the silhouette of a red battleship and a blue missile destroyer. Sunlit dust, detailed tracks, layered steel, epic ochre skies and deep teal atmosphere. Rich painstaking pixel clusters, high-bit handcrafted game art, not low resolution blocks, not photographic. Upper half focuses on the tanks and their conflict, bottom third gently fades to deep charcoal for overlaid readable game controls. No letters, logos, symbols, frame, typography, interface or watermark. Landscape 3:2.",
+    "tool": "ChatGPT built-in imagegen",
+    "reference": null
+  },
+  {
+    "name": "scene-victory",
+    "source": "source-art/scene-victory.png",
+    "prompt": "Use case: stylized-concept. Production raster game asset. A cinematic wide landscape pixel-art victory illustration for a military tactics game's results screen. A heroic slender angular NAVY BLUE reconnaissance tank with long cannon and cyan highlights stands atop a sunlit dusty ridge, a steel-blue fast destroyer sailing in the bright distant teal bay, victory mood, warm golden sunrise beams through dispersing clouds, quiet triumphant atmosphere, no combat violence. Gorgeous steel details and carefully drawn discrete pixel clusters, high-bit handcrafted game art. Main tank in upper-middle, lower third fades into deep charcoal for result text. No text, words, flags, lettering, logos, UI or watermark. Landscape 3:2.",
+    "tool": "ChatGPT built-in imagegen",
+    "reference": null
+  },
+  {
+    "name": "scene-defeat",
+    "source": "source-art/scene-defeat.png",
+    "prompt": "Use case: stylized-concept. Production raster game asset. A cinematic wide landscape pixel-art defeat illustration for a military tactics game's results screen. An abandoned BLUE angular reconnaissance tank, damaged armor, loose track and dim cyan headlights, stands in a rainy smoky crater by a cold teal coast. Distant rain, scattered sparks, mist, aftermath and solemn mood, no people, no gore. Exquisite handcrafted high-bit pixel-art, crisp intentional pixel clusters, rich wet metal details. Main tank in upper-middle, bottom third gently fades into deep charcoal for overlaid result text. No words, lettering, symbols, logos, UI, frame or watermark. Landscape 3:2.",
+    "tool": "ChatGPT built-in imagegen",
+    "reference": null
+  },
+  {
+    "name": "tank-red-drive",
+    "source": "source-art/tank-red-drive.png",
+    "prompt": "Edit the provided tank sprite into a PRODUCTION FOUR-FRAME horizontal animation strip. Exactly FOUR equally sized square slots in ONE row, wide 4:1 canvas. Repeat the SAME tank in all four slots facing UP, strict directly-overhead. Preserve tank identity, armor, cannon, palette, lighting, proportions and scale EXACTLY. Center the tank in each slot, same baseline and anchor, tank fills about 80% height of every slot with transparent padding. Animate only the track tread pattern advancing downward by one phase each frame, and VERY subtle 1-2 pixel suspension changes; body, turret and barrel remain otherwise stable. No rolling wheel circles, no rotation, no pose redesign. ONE coherent loop with frames A B C D then A. Transparent alpha background, no ground, dust, labels, separators, UI, scenery, black backing or checkerboard. Premium crisp high-bit pixel game asset, same style as seed.",
+    "tool": "ChatGPT built-in imagegen",
+    "reference": "source-art/tank-red.png"
+  },
+  {
+    "name": "tank-blue-drive",
+    "source": "source-art/tank-blue-drive.png",
+    "prompt": "Edit the provided tank sprite into a PRODUCTION FOUR-FRAME horizontal animation strip. Exactly FOUR equally sized square slots in ONE row, wide 4:1 canvas. Repeat the SAME tank in all four slots facing UP, strict directly-overhead. Preserve tank identity, armor, cannon, palette, lighting, proportions and scale EXACTLY. Center the tank in each slot, same baseline and anchor, tank fills about 80% height of every slot with transparent padding. Animate only the track tread pattern advancing downward by one phase each frame, and VERY subtle 1-2 pixel suspension changes; body, turret and barrel remain otherwise stable. No rolling wheel circles, no rotation, no pose redesign. ONE coherent loop with frames A B C D then A. Transparent alpha background, no ground, dust, labels, separators, UI, scenery, black backing or checkerboard. Premium crisp high-bit pixel game asset, same style as seed.",
+    "tool": "ChatGPT built-in imagegen",
+    "reference": "source-art/tank-blue.png"
+  },
+  {
+    "name": "fx-explosion",
+    "source": "source-art/fx-explosion.png",
+    "prompt": "Use case: stylized-concept. Production sprite animation / effect for a premium handcrafted high-bit pixel-art top-down military game. Exactly SIX frames in one horizontal row of equal square slots, left to right showing one top-down explosion developing: small bright white ignition, orange expanding fireball, full yellow-orange blast, scattered orange embers and dark smoke, expanding grey smoke, thinning fading smoke. Same center in every slot, biggest frame fits with 10% transparent padding. Do not move blast center between frames. Refined richly shaded pixel clusters. Actual transparent alpha canvas. No text, frame, labels, scenery, background, checkerboard, units, perspective or SVG/vector appearance. All slots equal size, separate fully transparent margins, never overlap neighboring slots.",
+    "tool": "ChatGPT built-in imagegen",
+    "reference": null
+  },
+  {
+    "name": "fx-splash",
+    "source": "source-art/fx-splash.png",
+    "prompt": "Use case: stylized-concept. Production sprite animation / effect for a premium handcrafted high-bit pixel-art top-down military game. Exactly SIX frames in one horizontal row of equal square slots, left to right showing one directly-overhead water explosion developing: bright central flash, tall turquoise-white spray, expanding crown of white water foam, circular spray and ripples, expanding soft foam ring, fading foam. Same center every slot, all frames fit with 10% transparent padding. Refined richly shaded pixel clusters. Actual transparent alpha canvas. No text, frame, labels, scenery, background, checkerboard, units, perspective or SVG/vector appearance. All slots equal size, separate fully transparent margins, never overlap neighboring slots.",
+    "tool": "ChatGPT built-in imagegen",
+    "reference": null
+  },
+  {
+    "name": "fx-muzzle",
+    "source": "source-art/fx-muzzle.png",
+    "prompt": "Use case: stylized-concept. Production sprite animation / effect for a premium handcrafted high-bit pixel-art top-down military game. Exactly FOUR frames in one horizontal row of equal square slots, left to right of a gun muzzle-flash animation viewed from above. Direction points UP in ALL frames: small cream spark, bright orange-white elongated flame burst, orange flame with sparks, tiny fading warm smoke. Flash attachment point stays at bottom-center of each frame. No gun, no tank, only the flash. Refined richly shaded pixel clusters. Actual transparent alpha canvas. No text, frame, labels, scenery, background, checkerboard, units, perspective or SVG/vector appearance. All slots equal size, separate fully transparent margins, never overlap neighboring slots.",
+    "tool": "ChatGPT built-in imagegen",
+    "reference": null
+  },
+  {
+    "name": "fx-wake",
+    "source": "source-art/fx-wake.png",
+    "prompt": "Use case: stylized-concept. Production sprite animation / effect for a premium handcrafted high-bit pixel-art top-down military game. ONE directly overhead delicate V-shaped foamy white ship wake on transparent background, narrow apex at TOP center, widening fan toward BOTTOM, transparent gaps and fine pixel foam ripples. No ship or water background. Sprite fits within 80% of square canvas. Refined richly shaded pixel clusters. Actual transparent alpha canvas. No text, frame, labels, scenery, background, checkerboard, units, perspective or SVG/vector appearance. All slots equal size, separate fully transparent margins, never overlap neighboring slots.",
+    "tool": "ChatGPT built-in imagegen",
+    "reference": null
+  },
+  {
+    "name": "scene-victory-red",
+    "source": "source-art/scene-victory-red.png",
+    "prompt": "Edit the victory illustration into the RED faction victory variant. Preserve the exact composition, golden sunrise, mountains, sea, coast, handcrafted pixel art style, lighting, and dark lower-third reserved for overlaid text. Change the foreground tank into a BROAD OXBLOOD RED heavy siege tank with ROUND cast-metal turret, ONE thick short cannon, exposed broad articulated tracks and rear external fuel drums; it must look industrial and noticeably different from the original angular long-barrel blue tank. Warm red/copper worn armor. Change the distant warship into a broad red battleship with warm wooden deck, three heavy round gun turrets and twin funnels. No text, insignia, lettering or watermark. All other scenery unchanged. High quality raster pixel game illustration.",
+    "tool": "ChatGPT built-in imagegen",
+    "reference": "source-art/scene-victory.png"
+  },
+  {
+    "name": "fx-shell",
+    "source": "source-art/fx-shell.png",
+    "prompt": "Use case: stylized-concept. Production raster game effect asset. ONE isolated horizontally aligned artillery shell sprite pointing RIGHT, strict top-down overhead view. Small copper steel shell with pointed bright warm ivory nose at RIGHT and darker brass tail at LEFT, tiny metallic pixel facets and warm light glints. Keep the shell slim, length 70% of square canvas, thickness 12% of canvas height. No flames, smoke, background, ground, text, labels, shadows extending outside sprite, effects sheet or additional shells. Refined high-bit handcrafted pixel art matching detailed military game units. Actual transparent alpha.",
+    "tool": "ChatGPT built-in imagegen",
+    "reference": null
+  },
+  {
+    "name": "fx-dust",
+    "source": "source-art/fx-dust.png",
+    "prompt": "Use case: stylized-concept. Production raster game effect asset. Exactly FOUR frames in ONE horizontal row of equal square slots: a light tan dusty plume developing behind a moving military tank, directly overhead view. Frame 1 small sand puff, frame 2 larger warm grey ochre plume with scattered tiny dust grains, frame 3 a softly dispersing dusty cloud, frame 4 thinner fading dust. Keep dust relatively subtle and translucent, detailed pixel clusters, not thick orange fire. Fixed center in every slot, empty transparent padding around each, no terrain, tank, text, labels, frame, black background, perspective or UI. Real transparent alpha. Premium high-bit handcrafted game pixel art.",
+    "tool": "ChatGPT built-in imagegen",
+    "reference": null
+  }
+]

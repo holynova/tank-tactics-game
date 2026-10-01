@@ -1,0 +1,107 @@
+[
+  {
+    "file": "click",
+    "seconds": 0.085,
+    "peak": 0.1809,
+    "rms": 0.0412,
+    "sampleRate": 24000
+  },
+  {
+    "file": "dice",
+    "seconds": 0.14,
+    "peak": 0.2544,
+    "rms": 0.0521,
+    "sampleRate": 24000
+  },
+  {
+    "file": "turn",
+    "seconds": 0.28,
+    "peak": 0.2075,
+    "rms": 0.065,
+    "sampleRate": 24000
+  },
+  {
+    "file": "turret-land",
+    "seconds": 0.3,
+    "peak": 0.1813,
+    "rms": 0.0609,
+    "sampleRate": 24000
+  },
+  {
+    "file": "turret-sea",
+    "seconds": 0.36,
+    "peak": 0.1753,
+    "rms": 0.062,
+    "sampleRate": 24000
+  },
+  {
+    "file": "motor-land",
+    "seconds": 0.9,
+    "peak": 0.273,
+    "rms": 0.0931,
+    "sampleRate": 24000
+  },
+  {
+    "file": "motor-sea",
+    "seconds": 0.9,
+    "peak": 0.2308,
+    "rms": 0.0782,
+    "sampleRate": 24000
+  },
+  {
+    "file": "fire-land",
+    "seconds": 0.64,
+    "peak": 0.6484,
+    "rms": 0.1039,
+    "sampleRate": 24000
+  },
+  {
+    "file": "fire-sea",
+    "seconds": 0.8,
+    "peak": 0.6477,
+    "rms": 0.1159,
+    "sampleRate": 24000
+  },
+  {
+    "file": "explode-land",
+    "seconds": 1.15,
+    "peak": 0.5619,
+    "rms": 0.1145,
+    "sampleRate": 24000
+  },
+  {
+    "file": "explode-sea",
+    "seconds": 1.15,
+    "peak": 0.5797,
+    "rms": 0.1128,
+    "sampleRate": 24000
+  },
+  {
+    "file": "win",
+    "seconds": 1.65,
+    "peak": 0.2712,
+    "rms": 0.0697,
+    "sampleRate": 24000
+  },
+  {
+    "file": "lose",
+    "seconds": 1.8,
+    "peak": 0.2824,
+    "rms": 0.0705,
+    "sampleRate": 24000
+  },
+  {
+    "file": "ambient-land",
+    "seconds": 8.0,
+    "peak": 0.0398,
+    "rms": 0.0094,
+    "sampleRate": 24000
+  },
+  {
+    "file": "ambient-sea",
+    "seconds": 8.0,
+    "peak": 0.069,
+    "rms": 0.013,
+    "sampleRate": 24000
+  }
+]

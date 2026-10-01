@@ -1,0 +1,149 @@
+{
+  "generator": "ChatGPT built-in imagegen",
+  "assets": [
+    {
+      "file": "fx-dust.webp",
+      "width": 640,
+      "height": 160,
+      "bytes": 95324,
+      "frames": 4,
+      "source": "source-art/fx-dust.png"
+    },
+    {
+      "file": "fx-explosion.webp",
+      "width": 960,
+      "height": 160,
+      "bytes": 93112,
+      "frames": 6,
+      "source": "source-art/fx-explosion.png"
+    },
+    {
+      "file": "fx-muzzle.webp",
+      "width": 640,
+      "height": 160,
+      "bytes": 32074,
+      "frames": 4,
+      "source": "source-art/fx-muzzle.png"
+    },
+    {
+      "file": "fx-shell.webp",
+      "width": 192,
+      "height": 192,
+      "bytes": 8142,
+      "frames": 1,
+      "source": "source-art/fx-shell.png"
+    },
+    {
+      "file": "fx-splash.webp",
+      "width": 960,
+      "height": 160,
+      "bytes": 125886,
+      "frames": 6,
+      "source": "source-art/fx-splash.png"
+    },
+    {
+      "file": "fx-wake.webp",
+      "width": 192,
+      "height": 192,
+      "bytes": 36330,
+      "frames": 1,
+      "source": "source-art/fx-wake.png"
+    },
+    {
+      "file": "scene-defeat.webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 302246,
+      "frames": 1,
+      "source": "source-art/scene-defeat.png"
+    },
+    {
+      "file": "scene-lobby.webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 338610,
+      "frames": 1,
+      "source": "source-art/scene-lobby.png"
+    },
+    {
+      "file": "scene-victory-red.webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 331616,
+      "frames": 1,
+      "source": "source-art/scene-victory-red.png"
+    },
+    {
+      "file": "scene-victory.webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 359144,
+      "frames": 1,
+      "source": "source-art/scene-victory.png"
+    },
+    {
+      "file": "ship-blue.webp",
+      "width": 192,
+      "height": 192,
+      "bytes": 14886,
+      "frames": 1,
+      "source": "source-art/ship-blue.png"
+    },
+    {
+      "file": "ship-red.webp",
+      "width": 192,
+      "height": 192,
+      "bytes": 22122,
+      "frames": 1,
+      "source": "source-art/ship-red.png"
+    },
+    {
+      "file": "tank-blue-drive.webp",
+      "width": 768,
+      "height": 192,
+      "bytes": 97894,
+      "frames": 4,
+      "source": "source-art/tank-blue-drive.png"
+    },
+    {
+      "file": "tank-blue.webp",
+      "width": 192,
+      "height": 192,
+      "bytes": 28646,
+      "frames": 1,
+      "source": "source-art/tank-blue-drive.png"
+    },
+    {
+      "file": "tank-red-drive.webp",
+      "width": 768,
+      "height": 192,
+      "bytes": 182364,
+      "frames": 4,
+      "source": "source-art/tank-red-drive.png"
+    },
+    {
+      "file": "tank-red.webp",
+      "width": 192,
+      "height": 192,
+      "bytes": 46552,
+      "frames": 1,
+      "source": "source-art/tank-red-drive.png"
+    },
+    {
+      "file": "terrain-land.webp",
+      "width": 640,
+      "height": 640,
+      "bytes": 205684,
+      "frames": 1,
+      "source": "source-art/terrain-land.png"
+    },
+    {
+      "file": "terrain-sea.webp",
+      "width": 640,
+      "height": 640,
+      "bytes": 116042,
+      "frames": 1,
+      "source": "source-art/terrain-sea.png"
+    }
+  ]
+}

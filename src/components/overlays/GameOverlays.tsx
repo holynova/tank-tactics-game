@@ -1,108 +1,64 @@
-import { Trophy, Zap, Bot, Users } from 'lucide-react';
-
 import { GameMode, Difficulty, DiceResult, PlayerColor } from '../../types/game';
+import { ThemeKey, THEMES, FACTIONS } from '../../constants/themes';
+import { art, unitImage } from '../../constants/assets';
 
-interface LobbyOverlayProps {
-  gameMode: GameMode;
-  setGameMode: (mode: GameMode) => void;
-  difficulty: Difficulty;
-  setDifficulty: (diff: Difficulty) => void;
-  onStart: () => void;
+interface LobbyProps {
+  gameMode: GameMode; setGameMode: (m: GameMode) => void; difficulty: Difficulty;
+  setDifficulty: (d: Difficulty) => void; onStart: () => void; theme: ThemeKey;
+  ready: boolean; error: string; onRetry: () => void;
 }
-
-export const LobbyOverlay = ({ gameMode, setGameMode, difficulty, setDifficulty, onStart }: LobbyOverlayProps) => (
-  <div className="absolute inset-0 bg-black/80 backdrop-blur-md z-50 flex flex-col items-center justify-center rounded-lg p-6 text-center space-y-6">
-    <div>
-      <h2 className="text-2xl font-bold mb-2 text-white">装甲战术</h2>
-      <p className="text-gray-400 text-sm">选择你的战场指挥方式</p>
-    </div>
-    
-    <div className="grid grid-cols-2 gap-4 w-full">
-      <button 
-        onClick={() => setGameMode('pvp')} 
-        className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
-          gameMode === 'pvp' 
-            ? 'border-green-500 bg-green-500/20 text-white' 
-            : 'border-gray-600 hover:bg-white/5 text-gray-400'
-        }`}
-      >
-        <Users size={32} /><span className="font-bold">双人对战</span>
-      </button>
-      <button 
-        onClick={() => setGameMode('pve')} 
-        className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
-          gameMode === 'pve' 
-            ? 'border-purple-500 bg-purple-500/20 text-white' 
-            : 'border-gray-600 hover:bg-white/5 text-gray-400'
-        }`}
-      >
-        <Bot size={32} /><span className="font-bold">人机对战</span>
-      </button>
-    </div>
-
-    {gameMode === 'pve' && (
-      <div className="w-full space-y-2">
-        <p className="text-xs text-gray-400 uppercase tracking-wider font-bold">AI 难度</p>
-        <div className="grid grid-cols-3 gap-2">
-          {[
-            { id: 'easy', label: '简单', color: 'text-green-400', border: 'border-green-500/50' },
-            { id: 'medium', label: '普通', color: 'text-yellow-400', border: 'border-yellow-500/50' },
-            { id: 'hard', label: '困难', color: 'text-red-400', border: 'border-red-500/50' }
-          ].map(level => (
-            <button
-              key={level.id}
-              onClick={() => setDifficulty(level.id as Difficulty)}
-              className={`py-2 rounded-lg border text-sm font-bold transition-all ${
-                difficulty === level.id 
-                  ? `${level.border} bg-white/10 ${level.color}` 
-                  : 'border-gray-700 text-gray-500 hover:bg-white/5'
-              }`}
-            >
-              {level.label}
-            </button>
-          ))}
-        </div>
+export const LobbyOverlay = (p: LobbyProps) => <main className="home-page">
+  <section className="hero-scene" style={{backgroundImage:`url(${art('scene-lobby')})`}}>
+    <div className="scene-top"><span>FIELD OPERATIONS / 001</span><span>回合制 · 战术对抗</span></div>
+    <div className="hero-copy"><p className="eyebrow">部署你的下一步</p><h1>方寸之间，<br/>决胜战场。</h1>
+      <p>两支军团，十六格战场。每一次推进，都是一场博弈。</p></div>
+  </section>
+  <div className="home-bottom">
+    <section className="mission-brief">
+      <p className="eyebrow">交战双方 / COMBATANTS</p>
+      <div className="faction-roster">
+        {(['red','blue'] as const).map(color=><article className={`faction-card ${color}`} key={color}>
+          <img src={unitImage(THEMES[p.theme].unitType,color)} alt={FACTIONS[color][THEMES[p.theme].unitType]}/>
+          <div><small>{FACTIONS[color].code}</small><h2>{FACTIONS[color].name}</h2><p>{FACTIONS[color][THEMES[p.theme].unitType]}</p></div>
+        </article>)}
       </div>
-    )}
-
-    <button 
-      onClick={onStart} 
-      className="w-full py-4 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-xl font-bold text-xl shadow-lg hover:scale-[1.02] transition-transform flex items-center justify-center gap-2"
-    >
-      <Zap /> 开始游戏
-    </button>
+      <div className="brief-rules"><span>01 <b>相邻移动</b></span><span>02 <b>连续集火</b></span><span>03 <b>守护友军</b></span></div>
+      <p className="brief-note">连续两个己方单位紧邻敌军即可集火。将敌方压缩至一个单位，赢得战役。</p>
+    </section>
+    <section className="deployment-panel">
+      <div className="section-title"><h2>作战部署</h2><span>{THEMES[p.theme].name}</span></div>
+      <div className="mode-choice">
+        <button aria-pressed={p.gameMode==='pve'} onClick={()=>p.setGameMode('pve')}><b>人机演练</b><small>你指挥苍蓝先锋</small></button>
+        <button aria-pressed={p.gameMode==='pvp'} onClick={()=>p.setGameMode('pvp')}><b>双人交锋</b><small>同屏轮流指挥</small></button>
+      </div>
+      {p.gameMode==='pve' && <div className="difficulty-choice" aria-label="AI 难度">
+        {([['easy','新兵'],['medium','老兵'],['hard','精英']] as const).map(([id,label])=><button key={id} aria-pressed={p.difficulty===id} onClick={()=>p.setDifficulty(id)}>{label}</button>)}
+      </div>}
+      <button className="primary-button" onClick={p.onStart} disabled={!p.ready}>{p.ready ? '进入战场  →' : '正在装载作战资源…'}</button>
+      <p className="deployment-note">{p.error || '掷骰决定先手 · 每回合推进一个单位'}</p>
+      {p.error && <button className="quiet-button" onClick={p.onRetry}>重新加载资源</button>}
+    </section>
   </div>
-);
+</main>;
 
-interface RollingOverlayProps {
-  diceResult: DiceResult;
+export const RollingOverlay = ({diceResult}: {diceResult: DiceResult}) => <div className="rolling-overlay" role="status">
+  <p className="eyebrow">决定行动顺序</p><div className="dice-pair">
+    {(['red','blue'] as const).map(color=><div key={color} className={`dice-team ${color}`}><div className="dice-face">{diceResult[color] || '·'}</div><span>{FACTIONS[color].name}</span></div>)}
+  </div><p>掷骰中…</p>
+</div>;
+
+interface ResultProps {
+  winner: PlayerColor; mode: GameMode; turns: number; lost: boolean;
+  onRestart: () => void; onHome: () => void; theme: ThemeKey;
 }
-
-export const RollingOverlay = ({ diceResult }: RollingOverlayProps) => (
-  <div className="absolute inset-0 bg-black/70 backdrop-blur-sm z-50 flex flex-col items-center justify-center rounded-lg">
-    <div className="flex gap-12 text-center">
-      <div><div className="text-5xl font-black text-red-500">{diceResult.red}</div>红方</div>
-      <div><div className="text-5xl font-black text-blue-500">{diceResult.blue}</div>蓝方</div>
-    </div>
-  </div>
-);
-
-interface GameOverOverlayProps {
-  winner: PlayerColor | null;
-  onRestart: () => void;
-}
-
-export const GameOverOverlay = ({ winner, onRestart }: GameOverOverlayProps) => (
-  <div className="absolute inset-0 bg-black/60 backdrop-blur-sm z-50 flex flex-col items-center justify-center rounded-lg animate-in fade-in zoom-in">
-    <Trophy size={64} className="text-yellow-400 mb-4 drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]" />
-    <h2 className="text-4xl font-black text-white mb-2 tracking-widest uppercase">
-      {winner === 'red' ? '红方' : '蓝方'} 胜利
-    </h2>
-    <button 
-      onClick={onRestart} 
-      className="px-8 py-3 bg-gradient-to-r from-yellow-500 to-orange-600 text-white font-bold rounded-full shadow-lg hover:scale-105 transition-transform"
-    >
-      返回大厅
-    </button>
-  </div>
-);
+export const GameOverOverlay = (p: ResultProps) => <main className={`result-page ${p.lost ? 'defeat' : 'victory'}`}>
+  <div className="result-art" style={{backgroundImage:`url(${art(p.lost ? 'scene-defeat' : p.winner==='red' ? 'scene-victory-red' : 'scene-victory')})`}}/>
+  <section className="result-content" role="status">
+    <p className="eyebrow">{p.lost ? 'MISSION LOST / 战役结束' : 'MISSION COMPLETE / 战役完成'}</p>
+    <h1>{p.lost ? '战线失守' : '战役胜利'}</h1>
+    <p className="result-description">{p.lost ? '苍蓝先锋已撤出战场。重新部署，下一步仍由你决定。' : `${FACTIONS[p.winner].name}掌握了战场。每一次精准决策，都通向这一刻。`}</p>
+    <div className="result-stats"><span><small>获胜军团</small><b>{FACTIONS[p.winner].name}</b></span><span><small>行动回合</small><b>{p.turns}</b></span><span><small>战区</small><b>{THEMES[p.theme].name}</b></span></div>
+    {p.mode==='pvp' && <p className="deployment-note">{FACTIONS[p.winner==='red' ? 'blue' : 'red'].name}战败 · 双人战役结束</p>}
+    <div className="result-actions"><button className="primary-button" onClick={p.onRestart}>再战一局 →</button><button className="quiet-button" onClick={p.onHome}>返回指挥部</button></div>
+  </section>
+</main>;

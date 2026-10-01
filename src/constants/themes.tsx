@@ -1,36 +1,10 @@
-import { Target, Anchor } from 'lucide-react';
-import { ReactNode } from 'react';
-
-export interface Theme {
-  name: string;
-  bg: string;
-  board: string;
-  cell: string;
-  gridLines: string;
-  icon: ReactNode;
-  unitType: 'tank' | 'ship';
-  ground: string;
-}
-
-export const THEMES: Record<string, Theme> = {
-  land: {
-    name: '陆战风云',
-    bg: 'bg-stone-800',
-    board: 'bg-[#5d5848]',
-    cell: 'bg-[#76715e] border-[#4a4638]',
-    gridLines: 'border-stone-600',
-    icon: <Target className="w-5 h-5" />,
-    unitType: 'tank',
-    ground: 'from-stone-800 to-stone-900'
-  },
-  sea: {
-    name: '怒海争锋',
-    bg: 'bg-slate-900',
-    board: 'bg-[#1e3a8a]',
-    cell: 'bg-[#2563eb] bg-opacity-20 border-[#60a5fa]',
-    gridLines: 'border-blue-400/30',
-    icon: <Anchor className="w-5 h-5" />,
-    unitType: 'ship',
-    ground: 'from-slate-900 to-blue-950'
-  }
+export type ThemeKey = 'land' | 'sea';
+export interface Theme { name: string; unitType: 'tank' | 'ship'; codename: string }
+export const THEMES: Record<ThemeKey, Theme> = {
+  land: { name: '陆战风云', unitType: 'tank', codename: 'DUST FRONT' },
+  sea: { name: '怒海争锋', unitType: 'ship', codename: 'DEEP BLUE' }
+};
+export const FACTIONS = {
+  red: { name: '赤铁军团', tank: '重装攻城坦克', ship: '重型战列舰', code: 'IRON LEGION' },
+  blue: { name: '苍蓝先锋', tank: '快速侦察坦克', ship: '导弹驱逐舰', code: 'AZURE VANGUARD' }
 };
