@@ -14,6 +14,7 @@ import { SIZE, ANIM_DURATION_ROTATE, ANIM_DURATION_MOVE, ANIM_DURATION_PROJECTIL
 import { THEMES, ThemeKey, FACTIONS } from './constants/themes';
 import { preloadArt } from './constants/assets';
 import { Piece, PlayerColor, GamePhase, DiceResult, GameMode, Difficulty, Projectile, Explosion } from './types/game';
+declare const APP_VERSION: string;
 
 function initialPieces(): Piece[] {
   return (['red','blue'] as const).flatMap(color=>Array.from({length:SIZE},(_,c)=>({
@@ -190,7 +191,7 @@ export default function App() {
         </section>
         <BattleLog logs={logs} theme={theme}/>
       </main>}
-    <footer className="game-footer"><span>TACTICS OVER FORCE.</span><span>双军团 · 双战场 · 十六格博弈</span><a href="https://github.com/holynova/tank-tactics-game" target="_blank" rel="noreferrer">GitHub ↗</a></footer>
+    <footer className="game-footer"><span>TACTICS OVER FORCE. · {APP_VERSION}</span><span>双军团 · 双战场 · 十六格博弈</span><a href="https://github.com/holynova/tank-tactics-game" target="_blank" rel="noreferrer">GitHub ↗</a></footer>
     {showRules&&<RulesModal onClose={()=>setShowRules(false)}/>}
   </div>;
 }
