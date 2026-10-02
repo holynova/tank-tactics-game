@@ -19,8 +19,10 @@ export default function BattleBoard(p: Props) {
   return <div className={`board-frame ${p.explosions.length ? 'impact-shake' : ''}`}>
     <div className="board-topline"><span>战区 / {THEMES[p.theme].codename}</span><span>04 × 04</span></div>
     <div className={`battlefield ${p.theme}`} aria-label="战术棋盘" data-testid="battlefield">
-      <div className="terrain" style={{ backgroundImage: `url(${art(`terrain-${p.theme}`)})` }} />
-      {p.theme === 'sea' && <div className="sea-shimmer" />}
+      <div className="battlefield-surface">
+        <div className="terrain" style={{ backgroundImage: `url(${art(`terrain-${p.theme}`)})` }} />
+        {p.theme === 'sea' && <div className="sea-shimmer" />}
+      </div>
       <div className="cell-grid">
         {Array.from({length: 16}, (_, index) => {
           const r = Math.floor(index / 4), c = index % 4, unit = p.grid[r][c];

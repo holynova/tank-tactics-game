@@ -1,5 +1,7 @@
 import { PlayerColor } from '../types/game';
-export const art = (name: string) => `${import.meta.env.BASE_URL}art/${name}.webp`;
+// Changing an existing image must also invalidate previously cached copies on Pages.
+const ART_REVISIONS: Record<string, string> = { 'tank-red': '2', 'tank-red-drive': '2' };
+export const art = (name: string) => `${import.meta.env.BASE_URL}art/${name}.webp${ART_REVISIONS[name] ? `?v=${ART_REVISIONS[name]}` : ''}`;
 export const unitImage = (type: 'tank' | 'ship', color: PlayerColor) => art(`${type}-${color}`);
 export const ART_FILES = ['tank-red', 'tank-blue', 'ship-red', 'ship-blue',
   'tank-red-drive', 'tank-blue-drive', 'terrain-land', 'terrain-sea',

@@ -117,7 +117,7 @@
       "file": "tank-red-drive.webp",
       "width": 768,
       "height": 192,
-      "bytes": 182364,
+      "bytes": 177182,
       "frames": 4,
       "source": "source-art/tank-red-drive.png"
     },
@@ -125,7 +125,7 @@
       "file": "tank-red.webp",
       "width": 192,
       "height": 192,
-      "bytes": 46552,
+      "bytes": 45240,
       "frames": 1,
       "source": "source-art/tank-red-drive.png"
     },

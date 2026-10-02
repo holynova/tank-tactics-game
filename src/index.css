@@ -10,7 +10,7 @@
   --gold: #e4bd79; --red: #ed8e78; --blue: #8ac8ea;
 }
 * { box-sizing: border-box; }
-body { margin: 0; min-width: 320px; }
+body { margin: 0; min-width: 320px; overflow-x: clip; }
 button, input, summary { font: inherit; }
 button, summary { touch-action: manipulation; }
 button { color: inherit; cursor: pointer; }
@@ -20,7 +20,7 @@ button { transition: background-color 160ms, border-color 160ms, color 160ms; }
 button:disabled:not(.board-cell) { opacity: .48; }
 a { color: var(--muted); text-decoration: none; }
 a:hover { color: var(--gold); }
-.game-shell { min-height: 100dvh; max-width: 1320px; margin: auto; padding: 0 40px; }
+.game-shell { min-height: 100dvh; max-width: 1320px; margin: auto; padding: 0 40px; overflow-x: clip; }
 .command-header { min-height: 100px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--line); }
 .brand { display: flex; gap: 12px; align-items: center; background: none; border: 0; text-align: left; padding: 0; }
 .brand-mark { width: 44px; height: 44px; display: grid; place-content: center; font: 900 30px Georgia, serif; background: var(--gold); color: #1b2426; position: relative; clip-path: polygon(0 0, 100% 0, 100% 75%,75% 100%,0 100%); }
@@ -97,7 +97,8 @@ summary::-webkit-details-marker { display: none; }
 .board-wrap { position: relative; max-width: 590px; margin: auto; }
 .board-frame { padding: 0 12px; border: 2px solid #647069; background: linear-gradient(135deg,#313b3d,#1c252a); box-shadow: 0 12px 35px #0006,inset 0 0 0 3px #171d1e; }
 .board-topline, .board-bottomline { display: flex; align-items: center; justify-content: space-between; height: 30px; font: 8px monospace; letter-spacing: .08em; color: #bbc1b3; }
-.battlefield { position: relative; aspect-ratio: 1; width: 100%; overflow: hidden; isolation: isolate; border: 1px solid #70756a; background: #655b3a; }
+.battlefield { position: relative; aspect-ratio: 1; width: 100%; overflow: visible; isolation: isolate; border: 1px solid #70756a; background: #655b3a; }
+.battlefield-surface { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .battlefield.sea { background: #153b4b; border-color: #487582; }
 .terrain { position: absolute; inset: 0; background-size: cover; filter: brightness(.85) saturate(.72); pointer-events: none; }
 .sea .terrain { filter: brightness(.72) saturate(.8); }
@@ -116,8 +117,8 @@ summary::-webkit-details-marker { display: none; }
 .move-marker { display: block; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%) rotate(45deg); width: 14px; height: 14px; border: 2px solid #e5efb0; background: #b1c47d50; box-shadow: 0 0 14px #e5efb030; }
 .last-move:not(.selected-cell) { background: #fae2a211; }
 .unit-layer, .effect-layer { position: absolute; inset: 0; pointer-events: none; }
-.unit-layer { z-index: 3; }
-.effect-layer { z-index: 5; }
+.unit-layer { z-index: 3; overflow: hidden; }
+.effect-layer { z-index: 5; overflow: visible; }
 .unit-position { position: absolute; width: 25%; height: 25%; transition-property: top,left; transition-timing-function: cubic-bezier(.45,0,.25,1); }
 .unit-rotator { position: absolute; inset: 0; transition-property: transform; transition-timing-function: ease-in-out; }
 .unit-body { position: absolute; width: 85%; height: 85%; top: 7.5%; left: 7.5%; filter: drop-shadow(3px 5px 2px #000a); }
@@ -147,8 +148,8 @@ summary::-webkit-details-marker { display: none; }
 .shell-light { position: absolute; top: -2px; left: -2px; width: 9px; height: 4px; border-radius: 50%; background: #fff5c6; box-shadow: 0 0 7px 3px #f4ac5c,0 0 17px 5px #ef894d99; transform: rotate(var(--heading)); }
 .shell-light i { position: absolute; top: 0; right: 4px; width: 32px; height: 3px; background: linear-gradient(90deg,transparent,#f0ad50bd,#ffe3a2); }
 .shell-light img { position: absolute; width: 30px; height: 30px; max-width: none; left: -18px; top: -13px; image-rendering: pixelated; z-index: 1; }
-.blast { position: absolute; width: 25%; height: 25%; }
-.blast-sprite { position: absolute; inset: -32%; background-size: 600% 100%; image-rendering: pixelated; animation: blast-frames .78s steps(6) forwards; }
+.blast { position: absolute; width: 25%; height: 25%; overflow: visible; }
+.blast-sprite { position: absolute; inset: -60%; background-size: 600% 100%; background-repeat: no-repeat; image-rendering: pixelated; animation: blast-frames .78s step-end forwards; }
 .impact-light { position: absolute; inset: -90%; background: radial-gradient(circle,#fff1bbd9 0,#edaf589e 20%,transparent 65%); mix-blend-mode: screen; animation: light-flash .35s ease-out forwards; }
 .sea .impact-light { background: radial-gradient(circle,#e9ffffc9,#96dcde79 20%,transparent 65%); }
 .shockwave { position: absolute; inset: 15%; border: 2px solid #ffe2ba; border-radius: 50%; animation: shockwave .5s ease-out forwards; }
@@ -211,7 +212,14 @@ summary::-webkit-details-marker { display: none; }
 @keyframes muzzle { to { background-position: 133.333333% 0; } }
 @keyframes dust-frames { to { background-position: 133.333333% 0; } }
 @keyframes barrel-recoil { 0%,100% { transform: translateY(0); } 25% { transform: translateY(4px); } }
-@keyframes blast-frames { to { background-position: 120% 0; } }
+@keyframes blast-frames {
+  0% { background-position: 0% 0; }
+  16.667% { background-position: 20% 0; }
+  33.333% { background-position: 40% 0; }
+  50% { background-position: 60% 0; }
+  66.667% { background-position: 80% 0; }
+  83.333%,100% { background-position: 100% 0; }
+}
 @keyframes suspension { 0%,100% { transform: translateY(0) rotate(-.35deg); } 50% { transform: translateY(1.2px) rotate(.35deg); } }
 @keyframes ship-roll { from { transform: translateX(-1px) rotate(-1deg); } to { transform: translateX(1px) rotate(1deg); } }
 @keyframes recoil { 0% { transform: translateY(0); } 22% { transform: translateY(5px); } 100% { transform: translateY(0); } }
