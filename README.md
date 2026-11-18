@@ -1,25 +1,25 @@
+<p align="right"><a href="README.en.md">English</a></p>
+
 <p align="center">
   <img src="./assets/readme/hero.svg" width="100%" alt="坦克战术 Tank Tactics — 4×4 回合制陆海战术：上半陆地坦克、下半海洋舰船，红方两辆夹住蓝方一辆触发集火">
 </p>
 
 <p align="center">
-  <a href="https://tank-tactics-game.xiaosang.cc/">▶ 在线玩 Play Online</a>
+  <a href="https://tank-tactics-game.xiaosang.cc/">▶ 在线玩</a>
   ·
   <a href="https://github.com/holynova/tank-tactics-game">GitHub 仓库</a>
 </p>
 
 坦克战术是一款 4×4 回合制陆海战术游戏：赤铁军团与苍蓝先锋在十六格战场上轮流推进，连续两个己方单位邻接敌军即可集火，将敌方压缩至一个单位即获胜。陆海双战场——陆上是坦克、海上是舰船，各有专属地形、插画与音效；支持同屏双人与人机演练。React + TypeScript。
 
-Tank Tactics is a 4×4 turn-based land-and-sea tactics game: the Iron Legion and the Azure Vanguard take turns advancing on a sixteen-cell board; two consecutive friendly units next to an enemy destroy it. Reduce the enemy to one unit to win. Two theaters — tanks on land, warships at sea — each with its own terrain, illustrations and sound. Local PvP and AI practice. React + TypeScript.
-
-## 截图 / Screenshots
+## 截图
 
 <p align="center">
   <img src="./assets/readme/screenshot-home.jpg" width="600" alt="首页：坦克战术标题，陆战风云 / 怒海争锋切换，赤铁军团与苍蓝先锋，人机演练 / 双人交锋与三档难度">
   <img src="./assets/readme/screenshot-sea.jpg" width="600" alt="怒海争锋对战：第 5 回合，4×4 海洋棋盘上红蓝舰船对峙，右侧是战役目标与战场记录">
 </p>
 
-## 玩法 / How to Play
+## 玩法
 
 - **先手掷骰**：开局掷骰决定先手；每回合推进一个单位。
 - **移动**：点选己方单位，再点上下左右正交相邻的空格；不能斜走、跳跃或进入占用格。
@@ -28,7 +28,7 @@ Tank Tactics is a 4×4 turn-based land-and-sea tactics game: the Iron Legion and
   - **守护友军**：受威胁的敌军紧邻同色友军时，免于被歼灭。
 - **胜负**：任一方只剩 1 个单位时判负。
 
-## 模式与内容 / Modes & Content
+## 模式与内容
 
 - **双战场**：陆战风云（DUST FRONT，坦克）与怒海争锋（DEEP BLUE，舰船），可随时切换；两军团造型独立——赤铁军团是重装攻城坦克 / 重型战列舰，苍蓝先锋是快速侦察坦克 / 导弹驱逐舰。
 - **人机演练**：你指挥蓝方，电脑执红方；三档 Minimax AI——新兵（1 层搜索）、老兵（2 层）、精英（3 层），带 Alpha-Beta 剪枝。
@@ -36,7 +36,7 @@ Tank Tactics is a 4×4 turn-based land-and-sea tactics game: the Iron Legion and
 - **表现**：履带滚动、扬尘、舰船尾流、炮弹光影与胜负插画；15 种原创音效（引擎、炮火、爆炸、环境声等），可开关。
 - **战场记录**：每步行动记入战报，可回顾整局进程。
 
-## 本地运行 / Run Locally
+## 本地运行
 
 Node.js + pnpm：
 
@@ -52,7 +52,7 @@ pnpm test      # node --test，10 个用例全过
 pnpm build
 ```
 
-## 技术 / Tech
+## 技术
 
 - React 18 + TypeScript + Vite 4 + Tailwind CSS 3；规则引擎是纯函数（`src/rules/`：移动 / 集火 / 胜负），与渲染层分离。
 - AI 是带 Alpha-Beta 剪枝的 Minimax（`src/hooks/useBotAI.ts`），评估含子力、中央控制与危险规避。
@@ -67,18 +67,3 @@ src/utils/soundEngine.ts  15 种音效的播放与生命周期
 public/art/             地形 / 单位 / 特效 / 场景插画（WebP）
 public/audio/           15 种原创音效（ogg + wav）
 ```
-
-## English
-
-**Tank Tactics** is a 4×4 turn-based land-and-sea tactics game. The Iron Legion (Red) and the Azure Vanguard (Blue) take turns moving one unit to an orthogonally adjacent empty cell. When two of your units end up in a line with an enemy (`[me][me][foe]` or `[foe][me][me]`), the outermost enemy is destroyed. Reduce the enemy to one unit to win.
-
-- **Focus fire, with exceptions**: lines with 4+ units are exempt (crowding protection); an enemy adjacent to a friendly unit on the same line is shielded. Rows and columns resolve independently.
-- **Two theaters**: Dust Front (tanks on land) and Deep Blue (warships at sea), switchable any time; each faction has distinct unit art.
-- **Modes**: local pass-and-play, or vs AI (you command Blue). Three Minimax difficulties — Recruit (depth 1), Veteran (depth 2), Elite (depth 3) — with alpha-beta pruning.
-- **Presentation**: animated tracks, dust, ship wakes, artillery lighting, illustrated results, and 15 original sound samples.
-- **Run it**: `pnpm install --frozen-lockfile && pnpm dev`. Tests: `pnpm test` (node --test, 10 cases, all passing).
-- **Tech**: React 18 + TypeScript + Vite 4 + Tailwind CSS 3. Pure-function rules engine, separated from rendering.
-
-## 许可 / License
-
-仓库未附 LICENSE 文件。
