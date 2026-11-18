@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1200" height="360" viewBox="0 0 1200 360"
+     role="img" aria-labelledby="title desc">
+  <title id="title">坦克战术 Tank Tactics — 4×4 回合制陆海战术</title>
+  <desc id="desc">深色军事指挥风标题：坦克战术，副标题赤铁与苍蓝；右侧是 4×4 棋盘，上半陆地坦克、下半海洋舰船，红方两辆夹住蓝方一辆触发集火。</desc>
+
+  <rect width="1200" height="360" rx="26" fill="#0d0f12"/>
+
+  <g id="title-block" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <text x="56" y="62" font-size="19" letter-spacing="3" fill="#8a94a3">4×4 回合制陆海战术 · REACT + TYPESCRIPT</text>
+    <text x="56" y="128" font-size="62" font-weight="700" fill="#e8cf9f">坦克战术</text>
+    <text x="56" y="168" font-size="23" fill="#e8ecf4">TANK TACTICS — 赤铁与苍蓝</text>
+    <text x="56" y="204" font-size="19" fill="#aab6cc">陆战风云 / 怒海争锋，双战场；连成两辆夹一辆，集火定胜负。</text>
+    <g id="chips" font-size="18" fill="#e8ecf4" text-anchor="middle">
+      <g><rect x="56" y="238" width="144" height="36" rx="18" fill="#1a1d22" stroke="#3a3f4a" stroke-width="1.5"/><text x="128" y="262">陆海双战场</text></g>
+      <g><rect x="212" y="238" width="162" height="36" rx="18" fill="#1a1d22" stroke="#3a3f4a" stroke-width="1.5"/><text x="293" y="262">三档 Minimax AI</text></g>
+      <g><rect x="386" y="238" width="144" height="36" rx="18" fill="#1a1d22" stroke="#3a3f4a" stroke-width="1.5"/><text x="458" y="262">15 种音效</text></g>
+      <g><rect x="542" y="238" width="126" height="36" rx="18" fill="#1a1d22" stroke="#3a3f4a" stroke-width="1.5"/><text x="605" y="262">双人同屏</text></g>
+    </g>
+    <text x="56" y="318" font-size="18" fill="#8a94a3">掷骰定先手 · 每回合推进一个单位</text>
+  </g>
+
+  <g id="board-scene" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <text x="768" y="40" font-size="18" fill="#e8cf9f">二打一集火 · [红][红][蓝] → 击毁</text>
+    <g id="board-frame">
+      <rect x="768" y="56" width="376" height="248" fill="#14181d" stroke="#3a3f4a" stroke-width="3"/>
+    </g>
+    <g id="land-cells" fill="#3d3323">
+      <rect x="768" y="56" width="94" height="62"/><rect x="956" y="56" width="94" height="62"/>
+      <rect x="862" y="118" width="94" height="62"/><rect x="1050" y="118" width="94" height="62"/>
+    </g>
+    <g id="land-cells2" fill="#463a28">
+      <rect x="862" y="56" width="94" height="62"/><rect x="1050" y="56" width="94" height="62"/>
+      <rect x="768" y="118" width="94" height="62"/><rect x="956" y="118" width="94" height="62"/>
+    </g>
+    <g id="sea-cells" fill="#12283a">
+      <rect x="768" y="180" width="94" height="62"/><rect x="956" y="180" width="94" height="62"/>
+      <rect x="862" y="242" width="94" height="62"/><rect x="1050" y="242" width="94" height="62"/>
+    </g>
+    <g id="sea-cells2" fill="#16324a">
+      <rect x="862" y="180" width="94" height="62"/><rect x="1050" y="180" width="94" height="62"/>
+      <rect x="768" y="242" width="94" height="62"/><rect x="956" y="242" width="94" height="62"/>
+    </g>
+    <g id="divider">
+      <rect x="768" y="176" width="376" height="4" fill="#e8cf9f" opacity="0.55"/>
+    </g>
+    <g id="labels" font-size="16" fill="#c8cfd8">
+      <text x="778" y="76">陆 · DUST FRONT</text>
+      <text x="778" y="296">海 · DEEP BLUE</text>
+    </g>
+    <g id="tank-red-1" transform="translate(909 87)">
+      <rect x="-30" y="-16" width="60" height="32" rx="5" fill="#c9502e" stroke="#1d1d28" stroke-width="2"/>
+      <rect x="18" y="-3" width="22" height="6" fill="#1d1d28"/>
+      <circle cx="0" cy="0" r="10" fill="#a83a1e" stroke="#1d1d28" stroke-width="2"/>
+      <circle cx="0" cy="0" r="4" fill="#1d1d28"/>
+    </g>
+    <g id="tank-red-2" transform="translate(1003 87)">
+      <rect x="-30" y="-16" width="60" height="32" rx="5" fill="#c9502e" stroke="#1d1d28" stroke-width="2"/>
+      <rect x="18" y="-3" width="22" height="6" fill="#1d1d28"/>
+      <circle cx="0" cy="0" r="10" fill="#a83a1e" stroke="#1d1d28" stroke-width="2"/>
+      <circle cx="0" cy="0" r="4" fill="#1d1d28"/>
+    </g>
+    <g id="tank-blue-target" transform="translate(1097 87)">
+      <rect x="-30" y="-16" width="60" height="32" rx="5" fill="#3d7ea6" stroke="#1d1d28" stroke-width="2"/>
+      <rect x="-40" y="-3" width="22" height="6" fill="#1d1d28"/>
+      <circle cx="0" cy="0" r="10" fill="#2c5f7d" stroke="#1d1d28" stroke-width="2"/>
+      <circle cx="0" cy="0" r="4" fill="#1d1d28"/>
+    </g>
+    <g id="explosion" transform="translate(1112 66) scale(0.72)">
+      <polygon points="0,-26 6,-8 26,-10 10,3 16,22 0,11 -16,22 -10,3 -26,-10 -6,-8" fill="#fcd424" opacity="0.95"/>
+      <circle r="6" fill="#ffffff"/>
+    </g>
+    <g id="ship-blue" transform="translate(909 273)">
+      <polygon points="-34,0 -22,-12 22,-12 34,0 22,12 -22,12" fill="#3d7ea6" stroke="#1d1d28" stroke-width="2"/>
+      <rect x="-8" y="-18" width="16" height="12" fill="#2c5f7d" stroke="#1d1d28" stroke-width="2"/>
+      <rect x="-2" y="-26" width="4" height="10" fill="#1d1d28"/>
+    </g>
+    <g id="ship-red" transform="translate(1003 211)">
+      <polygon points="-34,0 -22,-12 22,-12 34,0 22,12 -22,12" fill="#c9502e" stroke="#1d1d28" stroke-width="2"/>
+      <rect x="-8" y="-18" width="16" height="12" fill="#a83a1e" stroke="#1d1d28" stroke-width="2"/>
+      <rect x="-2" y="-26" width="4" height="10" fill="#1d1d28"/>
+    </g>
+    <g id="wake" stroke="#6fb3d9" stroke-width="2" opacity="0.6" fill="none">
+      <path d="M 868 285 Q 885 280 900 285"/>
+      <path d="M 962 223 Q 979 218 994 223"/>
+    </g>
+  </g>
+</svg>
